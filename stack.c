@@ -6,11 +6,16 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/23 16:50:11 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:49:44 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	operation(char *op)
+{
+	ft_putendl_fd(op, 1);
+}
 
 // Swap first 2 el
 void	swap_fs(t_list **stack)
@@ -34,6 +39,7 @@ void	swap_fs(t_list **stack)
 void	sa(t_list **stack_a)
 {
 	swap_fs(stack_a);
+	operation("sa");
 }
 
 /*
@@ -43,6 +49,7 @@ void	sa(t_list **stack_a)
 void	sb(t_list **stack_b)
 {
 	swap_fs(stack_b);
+	operation("sb");
 }
 
 // ss : sa and sb at the same time.
@@ -50,6 +57,7 @@ void	ss(t_list **stack_a, t_list **stack_b)
 {
 	sa(stack_a);
 	sb(stack_b);
+	operation("ss");
 }
 
 // takes el from stack_two to the stack_one
@@ -73,6 +81,7 @@ void	stos(t_list **stack_one, t_list **stack_two)
 void	pa(t_list **stack_a, t_list **stack_b)
 {
 	stos(stack_a, stack_b);
+	operation("pa");
 }
 
 /*
@@ -83,6 +92,7 @@ void	pa(t_list **stack_a, t_list **stack_b)
 void	pb(t_list **stack_b, t_list **stack_a)
 {
 	stos(stack_b, stack_a);
+	operation("pb");
 }
 
 void	rotate(t_list **stack)
@@ -104,6 +114,7 @@ void	rotate(t_list **stack)
 void	ra(t_list **stack_a)
 {
 	rotate(stack_a);
+	operation("ra");
 }
 
 /*
@@ -113,6 +124,7 @@ void	ra(t_list **stack_a)
 void	rb(t_list **stack_b)
 {
 	rotate(stack_b);
+	operation("rb");
 }
 
 // rr : ra and rb at the same time.
@@ -120,6 +132,7 @@ void	rr(t_list **stack_a, t_list **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);
+	operation("rr");
 }
 
 // rrotate: Reverse rotate a stack
@@ -143,12 +156,14 @@ void	rrotate(t_list **stack)
 void	rra(t_list **stack_a)
 {
 	rrotate(stack_a);
+	operation("rra");
 }
 
 // rrb (reverse rotate b): Shift down all elements of stack b by 1.
 void	rrb(t_list **stack_b)
 {
 	rrotate(stack_b);
+	operation("rrb");
 }
 
 // rrr : rra and rrb at the same time.
@@ -156,4 +171,5 @@ void	rrr(t_list **stack_a, t_list **stack_b)
 {
 	rra(stack_a);
 	rrb(stack_b);
+	operation("rrr");
 }

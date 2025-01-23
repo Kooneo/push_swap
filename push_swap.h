@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/23 17:28:26 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:06:13 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+
+
+void show_error();
 void	swap_fs(t_list **stack);
 void	sa(t_list **stack_a);
 void	sb(t_list **stack_b);
