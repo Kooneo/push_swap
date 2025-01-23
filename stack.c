@@ -6,17 +6,9 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/12 19:21:06 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/01/23 16:50:11 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// TODO: IMPLEMENT BASIC OPERATIONS
-
-// rra (reverse rotate a): Shift down all elements of stack a by 1.
-// The last element becomes the first one.
-// rrb (reverse rotate b): Shift down all elements of stack b by 1.
-// The last element becomes the first one.
-// rrr : rra and rrb at the same time.
 
 #include "push_swap.h"
 
@@ -25,7 +17,6 @@ void	swap_fs(t_list **stack)
 {
 	t_list	*fel;
 	t_list	*sel;
-	t_list	tmp_stack;
 
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
@@ -55,7 +46,7 @@ void	sb(t_list **stack_b)
 }
 
 // ss : sa and sb at the same time.
-void	sb(t_list **stack_a, t_list **stack_b)
+void	ss(t_list **stack_a, t_list **stack_b)
 {
 	sa(stack_a);
 	sb(stack_b);
@@ -94,43 +85,75 @@ void	pb(t_list **stack_b, t_list **stack_a)
 	stos(stack_b, stack_a);
 }
 
-
 void	rotate(t_list **stack)
 {
 	t_list	*firstnode;
-	t_list	*lastnode;
 
 	if (!stack || !*stack || !(*stack)->next)
 		return ;
 	firstnode = *stack;
-	lastnode = ft_lstlast(*stack);
-    *stack = firstnode->next;
-    firstnode->next = NULL;
-    ft_lstadd_back(stack, firstnode);
+	*stack = firstnode->next;
+	firstnode->next = NULL;
+	ft_lstadd_back(stack, firstnode);
 }
 
 /*
 	ra (rotate a): Shift up all elements of stack a by 1.
 	The first element becomes the last one.
 */
-void ra(t_list **stack_a)
+void	ra(t_list **stack_a)
 {
-    rotate(stack_a);
+	rotate(stack_a);
 }
 
-
 /*
-    rb (rotate b): Shift up all elements of stack b by 1.
-    The first element becomes the last one.
-*/ 
-void rb(t_list **stack_b)
+	rb (rotate b): Shift up all elements of stack b by 1.
+	The first element becomes the last one.
+*/
+void	rb(t_list **stack_b)
 {
-    rotate(stack_b);
+	rotate(stack_b);
 }
 
 // rr : ra and rb at the same time.
-void rr(t_list **stack_a, t_list **stack_b)
+void	rr(t_list **stack_a, t_list **stack_b)
 {
-    ra(stack_a);
-    rb(stack_b);
+	ra(stack_a);
+	rb(stack_b);
+}
+
+// rrotate: Reverse rotate a stack
+void	rrotate(t_list **stack)
+{
+	t_list	*prelast;
+	t_list	*lastnode;
+
+	if (!stack || !*stack || !(*stack)->next)
+		return ;
+	prelast = *stack;
+	while (prelast->next && prelast->next->next)
+		prelast = prelast->next;
+	lastnode = prelast->next;
+	prelast->next = NULL;
+	lastnode->next = *stack;
+	*stack = lastnode;
+}
+
+// rra (reverse rotate a): Shift down all elements of stack a by 1.
+void	rra(t_list **stack_a)
+{
+	rrotate(stack_a);
+}
+
+// rrb (reverse rotate b): Shift down all elements of stack b by 1.
+void	rrb(t_list **stack_b)
+{
+	rrotate(stack_b);
+}
+
+// rrr : rra and rrb at the same time.
+void	rrr(t_list **stack_a, t_list **stack_b)
+{
+	rra(stack_a);
+	rrb(stack_b);
 }
