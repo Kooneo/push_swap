@@ -2,7 +2,7 @@ CC = cc
 NAME = push_swap
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
+# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
 
 SRC_FILES = push_swap.c stack.c push_swap_utils.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
@@ -31,4 +31,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+leaks:
+	sudo leaks --atExit  --  ./push_swap "66 0 31 87 16 29 20 15 48 81 47 53 52 9 12 1 23"
+
+.PHONY: all clean fclean re leaks

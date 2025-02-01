@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/23 17:49:44 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 15:43:05 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,17 @@ void	stos(t_list **stack_one, t_list **stack_two)
 	the top of b and put it at the top of a.
 	Do nothing if b is empty.
 */
-void	pa(t_list **stack_a, t_list **stack_b)
+void pb(t_list **stack_b, t_list **stack_a)
 {
-	stos(stack_a, stack_b);
-	operation("pa");
+  stos(stack_b, stack_a); // Push FROM A (source) TO B (destination)
+  operation("pb");
 }
 
-/*
-	pb (push b): Take the first element at
-	the top of a and put it at the top of b.
-	Do nothing if a is empty.
-*/
-void	pb(t_list **stack_b, t_list **stack_a)
+// Corrected pa (push from B to A)
+void pa(t_list **stack_a, t_list **stack_b)
 {
-	stos(stack_b, stack_a);
-	operation("pb");
+  stos(stack_a, stack_b); // Push FROM B (source) TO A (destination)
+  operation("pa");
 }
 
 void	rotate(t_list **stack)

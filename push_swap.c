@@ -6,38 +6,11 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/23 19:07:36 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 16:13:21 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	check_is_dup(t_list *lst, int num)
-{
-	if (!lst)
-		return (0);
-	while (lst != NULL)
-	{
-		if (num == ft_atoi(lst->content))
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
-}
-
-int	check_is_number(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (!(s[i] >= '0' && s[i] <= '9'))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 void	handle_args(t_list **stack_a, int ac, char **argv)
 {
@@ -68,6 +41,18 @@ void	handle_args(t_list **stack_a, int ac, char **argv)
 	}
 }
 
+// Returns the maximum value in the stack
+int get_max_value(t_list *stack) {
+    int max = ft_atoi(stack->content);
+    while (stack) {
+        if (ft_atoi(stack->content) > max)
+            max = ft_atoi(stack->content);
+        stack = stack->next;
+    }
+    return max;
+}
+
+
 void	print_stack(t_list *stack)
 {
 	// ft_printf("<-- HEAD --> \t\n");
@@ -77,6 +62,47 @@ void	print_stack(t_list *stack)
 		stack = stack->next;
 	}
 	// ft_printf("<-- TAIL --> \t\n");
+}
+// Print stacks with labels
+void print_stacks(t_list *a, t_list *b) {
+    ft_printf("─── A ───\n");
+    print_stack(a);
+    ft_printf("─── B ───\n");
+    print_stack(b);
+    ft_printf("\n");
+}
+
+// Call this after EVERY operation in push_swap():
+
+
+void	push_swap(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*cur;
+	int		biggest;
+	int		index;
+
+	cur = *stack_a;
+	biggest = ft_atoi((char *)cur->content);
+	index = 0;
+	while (cur != NULL)
+	{
+		if (ft_atoi((char *)cur->content) >= biggest)
+		{
+			biggest = ft_atoi((char *)cur->content);
+			while (index)
+			{
+				index--;
+				ra(stack_a);
+			}
+			pb(stack_b, stack_a);
+			index = 0;
+			cur = *stack_a;
+		}
+		else {
+			index++;
+			cur = cur->next;
+		}
+	}
 }
 
 int	main(int ac, char **argv)
@@ -89,15 +115,16 @@ int	main(int ac, char **argv)
 	if (ac != 1)
 	{
 		handle_args(&stack_a, ac, argv);
-		ft_printf("---------stack a: ---------------\n");
-		print_stack(stack_a);
-		ft_printf("--------- operations: -----------\n");
-		pb(&stack_b, &stack_a);
-		ft_printf("\n\n\n");
-		ft_printf("---------stack a: ---------------\n");
-		print_stack(stack_a);
-		ft_printf("---------stack b: ---------------\n");
-		print_stack(stack_b);
+		// ft_printf("---------stack a: ---------------\n");
+		// print_stack(stack_a);
+		// ft_printf("--------- operations: -----------\n");
+		// ft_printf("\n\n\n");
+		push_swap(&stack_a, &stack_b);
+		// ft_printf("---------stack a: ---------------\n");
+		// print_stack(stack_a);
+		// pb(&stack_a, &stack_b);
+		// ft_printf("---------stack b: ---------------\n");
+		// print_stack(stack_b);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/23 19:06:13 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/01/24 13:54:36 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "libft/libft.h"
 
-
-void show_error();
+void	show_error(void);
+int		check_is_dup(t_list *lst, int num);
+int		check_is_number(char *s);
 void	swap_fs(t_list **stack);
 void	sa(t_list **stack_a);
 void	sb(t_list **stack_b);
