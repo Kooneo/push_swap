@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/24 13:54:36 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:28:06 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,40 @@
 
 # include "libft/libft.h"
 
+typedef struct s_node {
+    int value;
+    struct s_node *next;
+} t_node;
+
+typedef struct s_stack {
+    t_node *top;
+} t_stack;
+
 void	show_error(void);
-int		check_is_dup(t_list *lst, int num);
+int     check_is_dup(t_stack *stack, int n);
 int		check_is_number(char *s);
-void	swap_fs(t_list **stack);
-void	sa(t_list **stack_a);
-void	sb(t_list **stack_b);
-void	ss(t_list **stack_a, t_list **stack_b);
-void	stos(t_list **stack_one, t_list **stack_two);
-void	pa(t_list **stack_a, t_list **stack_b);
-void	pb(t_list **stack_b, t_list **stack_a);
-void	rotate(t_list **stack);
-void	ra(t_list **stack_a);
-void	rb(t_list **stack_b);
-void	rr(t_list **stack_a, t_list **stack_b);
-void	rrotate(t_list **stack);
-void	rra(t_list **stack_a);
-void	rrb(t_list **stack_b);
-void	rrr(t_list **stack_a, t_list **stack_b);
+
+// Utils functions
+void	operation(char *op);
+t_node	*ft_slast(t_stack *stack);
+void	ft_sadd_back(t_stack **stack, t_node *new);
+void	ft_sadd_front(t_stack **stack, t_node *new);
+
+// Stack operations
+void	swap_fs(t_stack *stack);
+void	sa(t_stack **stack_a);
+void	sb(t_stack **stack_b);
+void	ss(t_stack **stack_a, t_stack **stack_b);
+void	stos(t_stack **stack_one, t_stack **stack_two);
+void	pa(t_stack **stack_a, t_stack **stack_b);
+void	pb(t_stack **stack_a, t_stack **stack_b);
+void	rotate(t_stack **stack);
+void	ra(t_stack **stack_a);
+void	rb(t_stack **stack_b);
+void	rr(t_stack **stack_a, t_stack **stack_b);
+void	rrotate(t_stack **stack);
+void	rra(t_stack **stack_a);
+void	rrb(t_stack **stack_b);
+void	rrr(t_stack **stack_a, t_stack **stack_b);
 
 #endif

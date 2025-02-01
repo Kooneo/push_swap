@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:41:40 by zbakour           #+#    #+#             */
-/*   Updated: 2025/01/24 13:54:15 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 17:28:35 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@ void	show_error(void)
 	exit(1);
 }
 
-int	check_is_dup(t_list *lst, int num)
-{
-	if (!lst)
-		return (0);
-	while (lst != NULL)
-	{
-		if (num == ft_atoi(lst->content))
-			return (1);
-		lst = lst->next;
-	}
-	return (0);
-}
 
 int	check_is_number(char *s)
 {

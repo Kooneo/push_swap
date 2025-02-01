@@ -2,9 +2,16 @@ CC = cc
 NAME = push_swap
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-# CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
 
-SRC_FILES = push_swap.c stack.c push_swap_utils.c
+SRC_FILES = push_swap.c \
+			push_stack.c \
+			rotate_stack.c \
+			rrotate_stack.c \
+			swap_stack.c \
+			stack.c \
+			push_swap_utils.c \
+
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 all: $(NAME)
