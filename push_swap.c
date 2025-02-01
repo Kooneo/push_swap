@@ -6,45 +6,34 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 17:29:34 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 18:03:03 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-void free_array(char **arr)
-{
-    int i;
 
-    i = 0;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
-}
 
-void free_stack(t_stack *stack)
+void print_stack(t_stack *stack)
 {
     t_node *current;
-    t_node *next;
 
     if (!stack)
         return;
     current = stack->top;
     while (current)
     {
-        next = current->next;
-        free(current);
-        current = next;
+        ft_printf("%d\n", current->value);
+        current = current->next;
     }
-    free(stack);
 }
 
-void free_stacks(t_stack *stack_a, t_stack *stack_b)
+void print_stacks(t_stack *a, t_stack *b)
 {
-    free_stack(stack_a);
-    free_stack(stack_b);
+    ft_printf("─── A ───\n");
+    print_stack(a);
+    ft_printf("─── B ───\n");
+    print_stack(b);
+    ft_printf("\n");
 }
 
 int check_is_dup(t_stack *stack, int n)
@@ -112,29 +101,6 @@ int get_max_value(t_stack *stack)
         current = current->next;
     }
     return (max);
-}
-
-void print_stack(t_stack *stack)
-{
-    t_node *current;
-
-    if (!stack)
-        return;
-    current = stack->top;
-    while (current)
-    {
-        ft_printf("%d\n", current->value);
-        current = current->next;
-    }
-}
-
-void print_stacks(t_stack *a, t_stack *b)
-{
-    ft_printf("─── A ───\n");
-    print_stack(a);
-    ft_printf("─── B ───\n");
-    print_stack(b);
-    ft_printf("\n");
 }
 
 void push_swap(t_stack **stack_a, t_stack **stack_b)

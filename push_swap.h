@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 17:28:06 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 18:01:39 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_stack {
 void	show_error(void);
 int     check_is_dup(t_stack *stack, int n);
 int		check_is_number(char *s);
+void    free_stack(t_stack *stack);
+void    free_array(char **arr);
+void    free_stacks(t_stack *stack_a, t_stack *stack_b);
 
 // Utils functions
 void	operation(char *op);
