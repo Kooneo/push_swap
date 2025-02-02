@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 17:38:06 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 18:45:29 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ void	ft_sadd_front(t_stack **stack, t_node *new)
 		return ;
 	new->next = (*stack)->top;
 	(*stack)->top = new;
+}
+
+int ft_ssize(t_stack **stack)
+{
+	int size = 0;
+	t_node *cur = (*stack)->top;
+	while (cur != NULL)
+	{
+		size++;
+		cur = cur->next;
+	}
+	return (size);
 }

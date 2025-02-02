@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 18:01:39 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/01 22:08:52 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+#include <stdio.h>
 
 typedef struct s_node {
     int value;
@@ -30,7 +31,7 @@ int		check_is_number(char *s);
 void    free_stack(t_stack *stack);
 void    free_array(char **arr);
 void    free_stacks(t_stack *stack_a, t_stack *stack_b);
-
+int     ft_ssize(t_stack **stack);
 // Utils functions
 void	operation(char *op);
 t_node	*ft_slast(t_stack *stack);

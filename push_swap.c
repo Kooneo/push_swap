@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 18:03:03 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/02 15:42:20 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,36 +103,118 @@ int get_max_value(t_stack *stack)
     return (max);
 }
 
+/*
+n: is a constant that is set depending on the size of the stack, and it helps in calculating the offset (or chunk size),
+   for 10 numbers or less n = 5, for 150 or less n = 8, and more than 150 n = 18. these numbers are just starting points;
+   you can calibrate them to the performance you prefer.
+
+middle: as the name suggests, this is the middle of the sorted array(stack size / 2).
+
+offset: this variable is the chunk size, which equals (stack size / n).
+
+start: this is the start of the range that will be pushed, it is an index in the sorted array (middle - offset).
+
+end: this is the end of the range that will be pushed, it is an index in the sorted array(middle + offset).
+*/
+int calculate_n(t_stack **stack, int size)
+{
+    int n = 18;
+    if (size <= 10)
+        n = 5;
+    else if (size <= 150)
+        n = 8;
+    return (n);
+}
+
+int  *make_reference(t_stack **stack_a, int size)
+{
+    int *ref;
+
+    ref = malloc(size * sizeof(int));
+    if (!ref)
+        return (NULL);
+    t_node *cur = (*stack_a)->top;
+    int i = 0;
+    while (cur != NULL)
+    {
+        ref[i++] = cur->value;
+        cur = cur->next;
+    }
+    i = 0;
+    
+    while (i < size - 1)
+    {
+        int j = 0;
+        while (j < size - i - 1)
+        {
+            if (ref[j] > ref[j + 1])
+            {
+                int tmp = ref[j];
+                ref[j] = ref[j + 1];
+                ref[j + 1] = tmp;
+            }
+            j++;
+        }
+        
+        i++;
+    }
+    return (ref);
+}
+
+int num_in_range(int num, int *ref, int start, int end)
+{
+    int i = start - 1;
+    
+    while (i < end)
+    {
+        if (num == ref[i])
+            return (i);
+        i++;
+    }
+    return (0);
+}
+
 void push_swap(t_stack **stack_a, t_stack **stack_b)
 {
-    t_node  *current;
-    int     biggest;
-    int     index;
+    t_node  *top;
+    int     n;
 
     if (!stack_a || !*stack_a || !(*stack_a)->top)
         return;
-    current = (*stack_a)->top;
-    biggest = current->value;
-    index = 0;
-    while (current)
+    int size = ft_ssize(stack_a);
+    n = calculate_n(stack_a, size);
+    int offset = size / n;
+    const int middle = size / 2;
+    int start = middle - offset;
+    int end = middle + offset;
+    int *ref = make_reference(stack_a, size);
+    // printf("the middle is: %d\n", ref[middle - 1]);
+    // printf("start: %d\n", ref[ start - 1]);
+    // printf("end: %d\n", ref[ end - 1]);
+    // printf("size: %d n: %d middle: %d\n", size, n, middle);
+    int chunk_size = end - start;
+    // printf("is in Range: %d\n", num_in_range(93, ref, start, end));
+    // printf("chunk size %d\n", chunk_size);
+    top = (*stack_a)->top;
+    t_node *start_node = (*stack_a)->top;
+    while (top != NULL)
     {
-        if (current->value >= biggest)
+        if (num_in_range(top->value, ref, start, end))
         {
-            biggest = current->value;
-            while (index)
-            {
-                index--;
-                ra(stack_a);
-            }
             pb(stack_a, stack_b);
-            index = 0;
-            current = (*stack_a)->top;
-        }
-        else
+            if (top->value < ref[middle])
+                rb(stack_b);
+            chunk_size--;
+            top = (*stack_a)->top;
+        } else
+            ra(stack_a);
+        if (chunk_size == 0)
         {
-            index++;
-            current = current->next;
+            start += offset;
+            end += offset;
+            chunk_size = end - start;
         }
+        top = top->next;
     }
 }
 
@@ -145,13 +227,11 @@ int main(int ac, char **argv)
     stack_b = NULL;
     if (ac != 1)
     {
-		
         handle_args(&stack_a, ac, argv);
-		print_stacks(stack_a, stack_b);
+		// print_stacks(stack_a, stack_b);
         push_swap(&stack_a, &stack_b);
-		print_stacks(stack_a, stack_b);
+		// print_stacks(stack_a, stack_b);
     }
-    // Free memory before exit
     free_stacks(stack_a, stack_b);
     return (0);
 }
