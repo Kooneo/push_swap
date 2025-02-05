@@ -1,0 +1,125 @@
+while ((*stack_b) && (*stack_b)->top)
+    {
+        t_node *top = (*stack_b)->top;
+        while (top != NULL)
+        {
+            
+            if (num_in_range(top->value, ref, start, end))
+            {
+               
+                if ((*stack_a)->top && (*stack_b)->top->value < (*stack_a)->top->value)
+                {
+                    pa(stack_a, stack_b);
+                    if ((*stack_a)->top->value < (((*stack_a)->top->next)->value /  2.5))
+                    {
+                        ra(stack_a);
+                    } else
+                        sa(stack_a);
+                } else
+                {
+                    pa(stack_a, stack_b);
+                }
+                    
+                //     if (((*stack_a)->top->next) != NULL 
+                //         && (((*stack_a)->top->next)->value < (*stack_a)->top->value))
+                //     {
+                //         if (((*stack_a)->top->value < ((*stack_a)->top->next)->value / n) 
+                //             &&  ((((*stack_a)->top->next)->next) 
+                //             && (*stack_a)->top->value < (((*stack_a)->top->next)->next)->value)
+                //             )
+                //         {
+                //             sa(stack_a);
+                //         } else 
+                //         {
+                //             ra(stack_a); 
+                //         }
+                //     } 
+                //     else
+                        // sa(stack_a);
+                    
+                //     // {
+                //     // }
+                    
+                // }   
+                chunk_size--;
+            }
+            // else
+                // ra(stack_a);
+        
+            
+            if (chunk_size == 0)
+            {
+                start -= offset;
+                end += offset;
+                if (start < 0) start = 0;
+                if (end > size) end = size;
+                chunk_size = end - start;
+            }
+            top = top->next;
+        }
+        
+    }
+    int i = 0;
+    int pushed = 0;
+
+    // while ((*stack_a) && (*stack_a)->top)
+    // {
+    //     printf("hellso ");
+    //     t_node *top = (*stack_a)->top;
+    //     while (top != NULL)
+    //     {
+    //         if ((*stack_a)->top->value < median)
+    //         {
+    //             pb(stack_a, stack_b);  // Push to stack_b
+    //             pushed++;
+    //         }
+    //         else
+    //             ra(stack_a);  
+    //         top = top->next;
+    //     }
+        
+    // }
+    // while ((*stack_a) && (*stack_a)->top)
+    // {
+    //     t_node *top = (*stack_a)->top;
+    //     while (top != NULL)
+    //     {
+            
+    //         if (num_in_range(top->value, ref, start, end))
+    //         {
+    //             pb(stack_a, stack_b);
+    //             if ((*stack_b)->top && (*stack_b)->top->value > ref[middle])
+    //             {
+    //                 if (((*stack_b)->top->next) != NULL 
+    //                     && (((*stack_b)->top->next)->value < (*stack_b)->top->value))
+    //                 {
+    //                     if (((*stack_b)->top->value < ((*stack_b)->top->next)->value / 2.7) 
+    //                         &&  ((((*stack_b)->top->next)->next) 
+    //                         && (*stack_b)->top->value < (((*stack_b)->top->next)->next)->value)
+    //                         )
+    //                     {
+    //                         sb(stack_b);
+    //                     } else 
+    //                     {
+    //                         rb(stack_b); 
+    //                     }
+    //                 } 
+    //                 else
+    //                     sb(stack_b);                    
+    //             }   
+    //             chunk_size--;
+    //         }
+        
+            
+    //         if (chunk_size == 0)
+    //         {
+    //             start -= offset;
+    //             end += offset;
+    //             if (start < 0) start = 0;
+    //             if (end > size) end = size;
+    //             chunk_size = end - start;
+    //         }
+    //         top = top->next;
+    //     }
+        
+    // }

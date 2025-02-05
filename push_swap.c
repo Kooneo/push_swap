@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/02 15:42:20 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/05 18:16:21 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ start: this is the start of the range that will be pushed, it is an index in the
 
 end: this is the end of the range that will be pushed, it is an index in the sorted array(middle + offset).
 */
-int calculate_n(t_stack **stack, int size)
+int calculate_n(int size)
 {
     int n = 18;
     if (size <= 10)
@@ -155,7 +155,6 @@ int  *make_reference(t_stack **stack_a, int size)
             }
             j++;
         }
-        
         i++;
     }
     return (ref);
@@ -168,7 +167,7 @@ int num_in_range(int num, int *ref, int start, int end)
     while (i < end)
     {
         if (num == ref[i])
-            return (i);
+            return (1);
         i++;
     }
     return (0);
@@ -176,46 +175,42 @@ int num_in_range(int num, int *ref, int start, int end)
 
 void push_swap(t_stack **stack_a, t_stack **stack_b)
 {
-    t_node  *top;
-    int     n;
-
     if (!stack_a || !*stack_a || !(*stack_a)->top)
         return;
+
     int size = ft_ssize(stack_a);
-    n = calculate_n(stack_a, size);
+    int n = calculate_n(size);
     int offset = size / n;
-    const int middle = size / 2;
+    int middle = size / 2;
     int start = middle - offset;
     int end = middle + offset;
     int *ref = make_reference(stack_a, size);
-    // printf("the middle is: %d\n", ref[middle - 1]);
-    // printf("start: %d\n", ref[ start - 1]);
-    // printf("end: %d\n", ref[ end - 1]);
-    // printf("size: %d n: %d middle: %d\n", size, n, middle);
     int chunk_size = end - start;
-    // printf("is in Range: %d\n", num_in_range(93, ref, start, end));
-    // printf("chunk size %d\n", chunk_size);
-    top = (*stack_a)->top;
-    t_node *start_node = (*stack_a)->top;
-    while (top != NULL)
+    while ((*stack_a) && (*stack_a)->top)
     {
-        if (num_in_range(top->value, ref, start, end))
+        t_node *top = (*stack_a)->top;
+        while (top != NULL)
         {
-            pb(stack_a, stack_b);
-            if (top->value < ref[middle])
-                rb(stack_b);
-            chunk_size--;
-            top = (*stack_a)->top;
-        } else
-            ra(stack_a);
-        if (chunk_size == 0)
-        {
-            start += offset;
-            end += offset;
-            chunk_size = end - start;
-        }
-        top = top->next;
+            if (num_in_range(top->value, ref, start, end))
+            {
+                pb(stack_a, stack_b);
+                if (top->value < ref[middle])
+                    rb(stack_b);
+                chunk_size--;
+                top = (*stack_a)->top;
+            } else
+                ra(stack_a);
+            if (chunk_size == 0)
+            {
+                start += offset;
+                end += offset;
+                chunk_size = end - start;
+            }
+            if (top)
+                top = top->next;
+        }   
     }
+    free(ref);
 }
 
 int main(int ac, char **argv)
