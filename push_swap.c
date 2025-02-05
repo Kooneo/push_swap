@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/05 18:16:21 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/05 19:32:54 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,28 @@ int  *make_reference(t_stack **stack_a, int size)
     return (ref);
 }
 
+int get_el_pos(t_stack *stack,int *ref, int start, int end)
+{
+    (void)stack;
+    (void)ref;
+    int i = start ;
+    while (i < end - 1)
+    {
+    //     if (ref[i] == stack->top->value)
+    //     {
+    //         return (i);
+    //     }
+
+        // printf("start: %d\n", start);
+        // printf("end: %d\n", end);
+        // printf("value at start: %d\n", ref[start]);
+        // printf("value at end: %d\n", ref[i]);
+        
+        i++;
+    }
+    return (-1);
+}
+
 int num_in_range(int num, int *ref, int start, int end)
 {
     int i = start - 1;
@@ -184,6 +206,8 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
     int middle = size / 2;
     int start = middle - offset;
     int end = middle + offset;
+    printf("index end: %d\n", end);
+    printf("index start: %d\n", start);
     int *ref = make_reference(stack_a, size);
     int chunk_size = end - start;
     while ((*stack_a) && (*stack_a)->top)
@@ -193,9 +217,24 @@ void push_swap(t_stack **stack_a, t_stack **stack_b)
         {
             if (num_in_range(top->value, ref, start, end))
             {
+                // get the pos then rotate to make the number at the top
+                int pos = get_el_pos(*stack_a, ref, start, end);
+                printf("the pos: %d\n", pos);
+                
+                
+                // the push to b
+                
+                while (pos > 0)
+                {
+                    ra(stack_a);
+                    pos--;
+                }
                 pb(stack_a, stack_b);
                 if (top->value < ref[middle])
+                {
                     rb(stack_b);
+                }
+                
                 chunk_size--;
                 top = (*stack_a)->top;
             } else
