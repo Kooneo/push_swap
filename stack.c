@@ -57,10 +57,13 @@ void	ft_sadd_front(t_stack **stack, t_node *new)
 	(*stack)->top = new;
 }
 
-int ft_ssize(t_stack **stack)
+int	ft_ssize(t_stack **stack)
 {
-	int size = 0;
-	t_node *cur = (*stack)->top;
+	int		size;
+	t_node	*cur;
+
+	size = 0;
+	cur = (*stack)->top;
 	while (cur != NULL)
 	{
 		size++;

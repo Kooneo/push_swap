@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 22:08:52 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:14:03 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,20 @@
 #include <stdio.h>
 
 typedef struct s_node {
-    int value;
-    struct s_node *next;
+	int value;
+	struct s_node *next;
 } t_node;
 
 typedef struct s_stack {
-    t_node *top;
+	t_node *top;
 } t_stack;
 
+void	handle_args(t_stack **stack_a, int ac, char **argv);
+int		*make_reference(t_stack **stack_a, int size);
+void	update_chunk_range(int *params);
+int		calculate_n(int size);
 void	show_error(void);
-int     check_is_dup(t_stack *stack, int n);
+int		check_is_dup(t_stack *stack, int n);
 int		check_is_number(char *s);
 void    free_stack(t_stack *stack);
 void    free_array(char **arr);

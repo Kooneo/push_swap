@@ -6,266 +6,358 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/05 19:32:54 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/19 13:08:22 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-void print_stack(t_stack *stack)
+void	print_stack(t_stack *stack)
 {
-    t_node *current;
+	t_node	*current;
 
-    if (!stack)
-        return;
-    current = stack->top;
-    while (current)
-    {
-        ft_printf("%d\n", current->value);
-        current = current->next;
-    }
+	if (!stack)
+		return ;
+	current = stack->top;
+	while (current)
+	{
+		ft_printf("%d\n", current->value);
+		current = current->next;
+	}
 }
 
-void print_stacks(t_stack *a, t_stack *b)
+void	print_stacks(t_stack *a, t_stack *b)
 {
-    ft_printf("─── A ───\n");
-    print_stack(a);
-    ft_printf("─── B ───\n");
-    print_stack(b);
-    ft_printf("\n");
+	ft_printf("─── A ───\n");
+	print_stack(a);
+	ft_printf("─── B ───\n");
+	print_stack(b);
+	ft_printf("\n");
 }
 
-int check_is_dup(t_stack *stack, int n)
+int	get_el_pos(t_stack *stack, int *ref, int start, int end)
 {
-    t_node *current;
+	int	i;
 
-    if (!stack)
-        return (0);
-    current = stack->top;
-    while (current)
-    {
-        if (current->value == n)
-            return (1);
-        current = current->next;
-    }
-    return (0);
+	// (void)stack;
+	// (void)ref;
+	i = start;
+	while (i < end - 1)
+	{
+		if (ref[i] == stack->top->value)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
-void handle_args(t_stack **stack_a, int ac, char **argv)
+int	num_in_range(int num, int *ref, int start, int end)
 {
-    int     i;
-    int     n;
-    t_node  *new_node;
-    char    **arr;
-    int     j;
-
-    i = 1;
-    while (i < ac)
-    {
-        if (argv[i][0] == '\0')
-            show_error();
-        arr = ft_split(argv[i], ' ');
-        j = 0;
-        while (arr[j] != NULL)
-        {
-            n = ft_atoi(arr[j]);
-            if (!(check_is_number(arr[j])) || check_is_dup(*stack_a, n))
-                show_error();
-            new_node = malloc(sizeof(t_node));
-            if (!new_node)
-                show_error();
-            new_node->value = n;
-            new_node->next = NULL;
-            ft_sadd_back(stack_a, new_node);
-            j++;
-        }
-        free_array(arr);
-        i++;
-    }
-}
-
-int get_max_value(t_stack *stack)
-{
-    t_node *current;
-    int max;
-
-    if (!stack || !stack->top)
-        return (0);
-    current = stack->top;
-    max = current->value;
-    while (current)
-    {
-        if (current->value > max)
-            max = current->value;
-        current = current->next;
-    }
-    return (max);
-}
-
-/*
-n: is a constant that is set depending on the size of the stack, and it helps in calculating the offset (or chunk size),
-   for 10 numbers or less n = 5, for 150 or less n = 8, and more than 150 n = 18. these numbers are just starting points;
-   you can calibrate them to the performance you prefer.
-
-middle: as the name suggests, this is the middle of the sorted array(stack size / 2).
-
-offset: this variable is the chunk size, which equals (stack size / n).
-
-start: this is the start of the range that will be pushed, it is an index in the sorted array (middle - offset).
-
-end: this is the end of the range that will be pushed, it is an index in the sorted array(middle + offset).
-*/
-int calculate_n(int size)
-{
-    int n = 18;
-    if (size <= 10)
-        n = 5;
-    else if (size <= 150)
-        n = 8;
-    return (n);
-}
-
-int  *make_reference(t_stack **stack_a, int size)
-{
-    int *ref;
-
-    ref = malloc(size * sizeof(int));
-    if (!ref)
-        return (NULL);
-    t_node *cur = (*stack_a)->top;
-    int i = 0;
-    while (cur != NULL)
-    {
-        ref[i++] = cur->value;
-        cur = cur->next;
-    }
-    i = 0;
+	int	i;
     
-    while (i < size - 1)
-    {
-        int j = 0;
-        while (j < size - i - 1)
-        {
-            if (ref[j] > ref[j + 1])
-            {
-                int tmp = ref[j];
-                ref[j] = ref[j + 1];
-                ref[j + 1] = tmp;
-            }
-            j++;
-        }
-        i++;
-    }
-    return (ref);
+	if (start < 0 || end < 0 || start > end)
+		return (0);
+	i = start;
+	while (i < end)
+	{
+        if (num == ref[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-int get_el_pos(t_stack *stack,int *ref, int start, int end)
+void	initialize_chunk_params(int size, int params[5])
 {
-    (void)stack;
-    (void)ref;
-    int i = start ;
-    while (i < end - 1)
-    {
-    //     if (ref[i] == stack->top->value)
-    //     {
-    //         return (i);
-    //     }
+	params[0] = calculate_n(size);
+	params[1] = (size / 2) ; // middle
+	params[2] = size / params[0]; // offset
+	params[3] = params[1] - params[2]; // start
+	params[4] = params[1] + params[2]; // end
+	// ft_printf("n: %d\n", params[0]);
+	// ft_printf("middle: %d\n", params[1]);
+	// ft_printf("offset: %d\n", params[2]);
+	// ft_printf("start: %d\n", params[3]);
+	// ft_printf("end: %d\n", params[4]);
+}
 
-        // printf("start: %d\n", start);
-        // printf("end: %d\n", end);
-        // printf("value at start: %d\n", ref[start]);
-        // printf("value at end: %d\n", ref[i]);
+
+// void	push_swap(t_stack **stack_a, t_stack **stack_b)
+// {
+// 	int		size;
+// 	t_node	*top;
+// 	int		*ref;
+// 	int		i;
+// 	t_node		*cur;
+
+// 	if (!stack_a || !*stack_a || !(*stack_a)->top)
+// 		return ;
+// 	int chunk_params[5]; // [n, middle, offset, start, end]
+// 	size = ft_ssize(stack_a);
+// 	top = (*stack_a)->top;
+// 	ref = make_reference(stack_a, size);
+// 	initialize_chunk_params(size, chunk_params);
+// 	// while ((*stack_a)->top != NULL)
+// 	// {
+//         cur = (*stack_a)->top;
+//         int chunk_size = chunk_params[4] - chunk_params[3];
+//         ft_printf("chunk size: %d\n", chunk_size);
+//         ft_printf("start: %d\n", chunk_params[3]);
+//         ft_printf("middle: %d\n", chunk_params[1]);
+// 	ft_printf("end: %d\n", chunk_params[4]);
+// 		while (cur != NULL)
+// 		{
+// 			if (num_in_range(cur->value, ref, chunk_params[3], chunk_params[4]))
+// 			{
+// 				pb(stack_a, stack_b);
+// 				if (cur->value <= ref[chunk_params[1]])
+// 					rb(stack_b);
+//                 chunk_size--;
+// 			}
+//             else
+//                 ra(stack_a);
+//             if (chunk_size == 0) 
+//                 update_chunk_range(chunk_params);
+//             cur = (*stack_a)->top->next;
+// 		}
+// 		// printf("params[4] %d\n", chunk_params[4]);
         
+		
+// 	// }
+// 	free(ref);
+// }
+
+
+void	sort_3_nums(t_stack **stack_a)
+{
+	int	num1;
+	int	num2;
+	int	num3;
+	int	max;
+
+	if (!stack_a || !(*stack_a) || !(*stack_a)->top || !(*stack_a)->top->next
+		|| !(*stack_a)->top->next->next)
+		return ;
+	num1 = (*stack_a)->top->value;
+	num2 = (*stack_a)->top->next->value;
+	num3 = (*stack_a)->top->next->next->value;
+	max = num1;
+	if (num2 > max)
+		max = num2;
+	if (num3 > max)
+		max = num3;
+	if (num1 == max)
+	{
+		if (num2 > num3)
+		{
+			sa(stack_a);
+			rra(stack_a);
+		}
+		else
+			ra(stack_a);
+	}
+	else if (num2 == max)
+	{
+		if (num1 > num3)
+			rra(stack_a);
+		else
+		{
+			sa(stack_a);
+			ra(stack_a);
+		}
+	}
+	else
+	{
+		if (num1 > num2)
+			sa(stack_a);
+	}
+}
+
+static int get_element_position(int *ref, int size, int value)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+    {
+        if (ref[i] == value)
+            return (i);
         i++;
     }
     return (-1);
 }
 
-int num_in_range(int num, int *ref, int start, int end)
+// static void push_back_to_a(t_stack **a, t_stack **b)
+// {
+//     int max_pos;
+//     int max_val;
+//     t_node *current;
+//     int size_b;
+
+//     while (*b && (*b)->top)
+//     {
+//         size_b = ft_ssize(b);
+//         current = (*b)->top;
+//         max_val = current->value;
+//         max_pos = 0;
+//         current = current->next;
+//         for (int i = 1; i < size_b; i++)
+//         {
+//             if (current->value > max_val)
+//             {
+//                 max_val = current->value;
+//                 max_pos = i;
+//             }
+//             current = current->next;
+//         }
+//         if (max_pos <= size_b / 2)
+//         {
+//             for (int i = 0; i < max_pos; i++)
+//                 rb(b);
+//         }
+//         else
+//         {
+//             for (int i = 0; i < size_b - max_pos; i++)
+//                 rrb(b);
+//         }
+//         pa(a, b);
+//     }
+// }
+
+static void push_back_to_a(t_stack **a, t_stack **b)
 {
-    int i = start - 1;
-    
-    while (i < end)
+    int max_pos;
+    int max_val;
+    int down = 0; // Track numbers at the bottom of A
+    t_node *current;
+    int size_b;
+
+    while (*b && (*b)->top)
     {
-        if (num == ref[i])
-            return (1);
-        i++;
+        size_b = ft_ssize(b);
+        current = (*b)->top;
+        max_val = current->value;
+        max_pos = 0;
+        current = current->next;
+
+        // Find the maximum value and its position in B
+        for (int i = 1; i < size_b; i++)
+        {
+            if (current->value > max_val)
+            {
+                max_val = current->value;
+                max_pos = i;
+            }
+            current = current->next;
+        }
+
+        // Rotate or reverse rotate to bring max to the top
+        if (max_pos <= size_b / 2)
+        {
+            for (int i = 0; i < max_pos; i++)
+                rb(b);
+        }
+        else
+        {
+            for (int i = 0; i < size_b - max_pos; i++)
+                rrb(b);
+        }
+
+        // Find the bottom value of A
+        t_node *bottom = (*a)->top;  // Start at the top
+        while (bottom && bottom->next)  
+            bottom = bottom->next;  // Traverse to last node
+
+        // Now, max is at the top of B
+        if (down == 0 || (*b)->top->value > bottom->value)
+        {
+            pa(a, b);  // Push to A
+            ra(a);     // Rotate to put it at the bottom
+            down++;
+        }
+        else
+        {
+            pa(a, b); // Push normally
+        }
     }
-    return (0);
+
+    // Reverse rotate A to bring everything back
+    // while (down-- > 0)
+    //     rra(a);
 }
 
 void push_swap(t_stack **stack_a, t_stack **stack_b)
 {
+    int size;
+    int *ref;
+    int params[5];
+    int start;
+    int end;
+    int offset;
+
     if (!stack_a || !*stack_a || !(*stack_a)->top)
         return;
-
-    int size = ft_ssize(stack_a);
-    int n = calculate_n(size);
-    int offset = size / n;
-    int middle = size / 2;
-    int start = middle - offset;
-    int end = middle + offset;
-    printf("index end: %d\n", end);
-    printf("index start: %d\n", start);
-    int *ref = make_reference(stack_a, size);
-    int chunk_size = end - start;
-    while ((*stack_a) && (*stack_a)->top)
+    size = ft_ssize(stack_a);
+    if (size == 3)
     {
-        t_node *top = (*stack_a)->top;
-        while (top != NULL)
-        {
-            if (num_in_range(top->value, ref, start, end))
-            {
-                // get the pos then rotate to make the number at the top
-                int pos = get_el_pos(*stack_a, ref, start, end);
-                printf("the pos: %d\n", pos);
-                
-                
-                // the push to b
-                
-                while (pos > 0)
-                {
-                    ra(stack_a);
-                    pos--;
-                }
-                pb(stack_a, stack_b);
-                if (top->value < ref[middle])
-                {
-                    rb(stack_b);
-                }
-                
-                chunk_size--;
-                top = (*stack_a)->top;
-            } else
-                ra(stack_a);
-            if (chunk_size == 0)
-            {
-                start += offset;
-                end += offset;
-                chunk_size = end - start;
-            }
-            if (top)
-                top = top->next;
-        }   
+        sort_3_nums(stack_a);
+        return;
     }
+    ref = make_reference(stack_a, size);
+    initialize_chunk_params(size, params);
+    start = params[3];
+    end = params[4];
+    offset = params[2];
+    while ((*stack_a)->top != NULL)
+    {
+        int current_start = (start < 0) ? 0 : start;
+        int current_end = (end > size) ? size : end;
+        if (current_start >= current_end)
+            break;
+        int current_chunk_middle = (current_end + current_start) / 2;
+        int rotations = 0;
+        int current_size = ft_ssize(stack_a);
+        while (rotations < current_size)
+        {
+            int val = (*stack_a)->top->value;
+            int pos = get_element_position(ref, size, val);
+            if (pos >= current_start && pos < current_end)
+            {
+                pb(stack_a, stack_b);
+                int b_pos = get_element_position(ref, size, (*stack_b)->top->value);
+                if (b_pos < current_chunk_middle)
+                    rb(stack_b);
+                rotations = 0;
+                current_size = ft_ssize(stack_a);
+            }
+            else
+            {
+                ra(stack_a);
+                rotations++;
+            }
+        }
+        start -= offset;
+        end += offset;
+    }
+    push_back_to_a(stack_a, stack_b);
     free(ref);
 }
 
-int main(int ac, char **argv)
+int	main(int ac, char **argv)
 {
-    t_stack *stack_a;
-    t_stack *stack_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
-    stack_a = NULL;
-    stack_b = NULL;
-    if (ac != 1)
-    {
-        handle_args(&stack_a, ac, argv);
+	stack_a = NULL;
+	stack_b = NULL;
+	if (ac != 1)
+	{
+		handle_args(&stack_a, ac, argv);
 		// print_stacks(stack_a, stack_b);
-        push_swap(&stack_a, &stack_b);
+		push_swap(&stack_a, &stack_b);
 		// print_stacks(stack_a, stack_b);
-    }
-    free_stacks(stack_a, stack_b);
-    return (0);
+	}
+	free_stacks(stack_a, stack_b);
+	return (0);
 }
+

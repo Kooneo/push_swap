@@ -1,0 +1,115 @@
+
+int calculate_n(int size)
+{
+    int n;
+
+    if (size <= 100)
+        n = 5;
+    else
+        n = 11;
+    return (n);
+}
+
+
+static int get_element_position(int *ref, int size, int value)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+    {
+        if (ref[i] == value)
+            return (i);
+        i++;
+    }
+    return (-1);
+}
+
+static void push_back_to_a(t_stack **a, t_stack **b)
+{
+    int max_pos;
+    int max_val;
+    t_node *current;
+    int size_b;
+
+    while (*b && (*b)->top)
+    {
+        size_b = ft_ssize(b);
+        current = (*b)->top;
+        max_val = current->value;
+        max_pos = 0;
+        current = current->next;
+        for (int i = 1; i < size_b; i++)
+        {
+            if (current->value > max_val)
+            {
+                max_val = current->value;
+                max_pos = i;
+            }
+            current = current->next;
+        }
+        if (max_pos <= size_b / 2)
+        {
+            for (int i = 0; i < max_pos; i++)
+                rb(b);
+        }
+        else
+        {
+            for (int i = 0; i < size_b - max_pos; i++)
+                rrb(b);
+        }
+        pa(a, b);
+    }
+}
+
+void push_swap(t_stack **stack_a, t_stack **stack_b)
+{
+    int size;
+    int *ref;
+    int params[5];
+    int start;
+    int end;
+    int offset;
+
+    if (!stack_a || !*stack_a || !(*stack_a)->top)
+        return;
+    size = ft_ssize(stack_a);
+    ref = make_reference(stack_a, size);
+    initialize_chunk_params(size, params);
+    start = params[3];
+    end = params[4];
+    offset = params[2];
+    while (start >= 0 || end <= size)
+    {
+        int current_start = (start < 0) ? 0 : start;
+        int current_end = (end > size) ? size : end;
+        if (current_start >= current_end)
+            break;
+        int current_chunk_middle = (current_start + current_end) / 2;
+        int rotations = 0;
+        int current_size = ft_ssize(stack_a);
+        while (rotations < current_size)
+        {
+            int val = (*stack_a)->top->value;
+            int pos = get_element_position(ref, size, val);
+            if (pos >= current_start && pos < current_end)
+            {
+                pb(stack_a, stack_b);
+                int b_pos = get_element_position(ref, size, (*stack_b)->top->value);
+                if (b_pos < current_chunk_middle)
+                    rb(stack_b);
+                rotations = 0;
+                current_size = ft_ssize(stack_a);
+            }
+            else
+            {
+                ra(stack_a);
+                rotations++;
+            }
+        }
+        start -= offset;
+        end += offset;
+    }
+    // push_back_to_a(stack_a, stack_b);
+    free(ref);
+}

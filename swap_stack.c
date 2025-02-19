@@ -14,8 +14,8 @@
 
 void	swap_fs(t_stack *stack)
 {
-	t_node		*first;
-	t_node		*second;
+	t_node	*first;
+	t_node	*second;
 
 	if (!stack || !stack->top || !stack->top->next)
 		return ;

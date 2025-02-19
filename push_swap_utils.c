@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:41:40 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 18:09:04 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/16 15:09:31 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,54 +18,38 @@ void	show_error(void)
 	exit(1);
 }
 
-int	check_is_number(char *s)
+void	free_array(char **arr)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (arr[i])
 	{
-		if (!((s[i] >= '0' && s[i] <= '9' ) || s[i] == '-') || (s[i] == '-' && s[i + 1] == '-'))
-			return (0);
+		free(arr[i]);
 		i++;
 	}
-    if (s[i - 1] == '-') // if entred -223-: - at the end
-        return (0);
-	return (1);
+	free(arr);
 }
 
-void free_array(char **arr)
+void	free_stack(t_stack *stack)
 {
-    int i;
+	t_node	*current;
+	t_node	*next;
 
-    i = 0;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
+	if (!stack)
+		return ;
+	current = stack->top;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	free(stack);
 }
 
-void free_stack(t_stack *stack)
+void	free_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-    t_node *current;
-    t_node *next;
-
-    if (!stack)
-        return;
-    current = stack->top;
-    while (current)
-    {
-        next = current->next;
-        free(current);
-        current = next;
-    }
-    free(stack);
-}
-
-void free_stacks(t_stack *stack_a, t_stack *stack_b)
-{
-    free_stack(stack_a);
-    free_stack(stack_b);
+	free_stack(stack_a);
+	free_stack(stack_b);
 }

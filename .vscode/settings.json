@@ -4,6 +4,26 @@
         "stack": "c",
         "forward_list": "c",
         "libft.h": "c",
-        "ratio": "c"
-    }
+        "ratio": "c",
+        "queue": "c",
+        "__bit_reference": "c",
+        "__hash_table": "c",
+        "__split_buffer": "c",
+        "__tree": "c",
+        "array": "c",
+        "deque": "c",
+        "initializer_list": "c",
+        "ios": "c",
+        "list": "c",
+        "map": "c",
+        "regex": "c",
+        "set": "c",
+        "span": "c",
+        "string": "c",
+        "string_view": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "tmp": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
