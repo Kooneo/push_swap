@@ -38,13 +38,15 @@ void	bubble_sort(int *ref, int size)
 
 int	*make_reference(t_stack **stack_a, int size)
 {
-	int *ref;
+	int		*ref;
+	t_node	*cur;
+	int		i;
 
 	ref = malloc(size * sizeof(int));
 	if (!ref)
 		return (NULL);
-	t_node *cur = (*stack_a)->top;
-	int i = 0;
+	cur = (*stack_a)->top;
+	i = 0;
 	while (cur != NULL)
 	{
 		ref[i++] = cur->value;
@@ -75,4 +77,3 @@ int	calculate_n(int size)
 		n = 8;
 	return (n);
 }
-
