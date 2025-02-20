@@ -6,34 +6,11 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/19 16:29:36 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/20 12:26:52 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_stack *stack)
-{
-	t_node	*current;
-
-	if (!stack)
-		return ;
-	current = stack->top;
-	while (current)
-	{
-		ft_printf("%d\n", current->value);
-		current = current->next;
-	}
-}
-
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	ft_printf("─── A ───\n");
-	print_stack(a);
-	ft_printf("─── B ───\n");
-	print_stack(b);
-	ft_printf("\n");
-}
 
 void	sort_3_nums(t_stack **stack_a)
 {
@@ -139,32 +116,50 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 	}
 }
 
-int	init_the_j_index(int size)
+int	init_offset(int size)
 {
-	int	j;
+	int	offset;
 
-	j = size / 10;
+	offset = size / 10;
 	if (size <= 100)
-		j = size / 6;
+		offset = size / 7;
 	else if (size <= 7000)
-		j = size / 14;
-	return (j);
+		offset = size / 14;
+	return (offset);
 }
 
-void	move_index(int *i, int *j, int size)
+void	move_index(int *index, int *offset, int size)
 {
-	if ((*j) < size - 1)
-		(*j)++;
-	if ((*i) < (*j))
-		(*i)++;
+	if ((*offset) < size - 1)
+		(*offset)++;
+	if ((*index) < (*offset))
+		(*index)++;
+}
+
+short	is_sorted(t_stack **stack_a)
+{
+	t_node *current;
+
+	current = (*stack_a)->top;
+	short is_not_sorted = 0;
+	while (current != NULL)
+	{
+		if (current->next != NULL)
+		{
+			if (current->value > current->next->value)
+				is_not_sorted = 1;
+		}
+		current = current->next;
+	}
+	return (!is_not_sorted);
 }
 
 void	push_swap(t_stack **stack_a, t_stack **stack_b)
 {
 	int	size;
 	int	*ref;
-	int	i;
-	int	j;
+	int	index;
+	int	offset;
 
 	if (!stack_a || !*stack_a || !(*stack_a)->top)
 		return ;
@@ -172,24 +167,24 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b)
 	if (size == 3)
 		return (sort_3_nums(stack_a));
 	ref = make_reference(stack_a, size);
-	i = 0;
-	j = init_the_j_index(size);
+	index = 0;
+	offset = init_offset(size);
 	while ((*stack_a)->top != NULL)
 	{
-		if ((*stack_a)->top->value <= ref[i])
+		if ((*stack_a)->top->value <= ref[index])
 		{
 			pb(stack_a, stack_b);
 			if ((*stack_b)->top->next)
 				rb(stack_b);
-			move_index(&i, &j, size);
+			move_index(&index, &offset, size);
 		}
-		else if ((*stack_a)->top->value <= ref[j])
+		else if ((*stack_a)->top->value <= ref[offset])
 		{
 			pb(stack_a, stack_b);
 			if ((*stack_b)->top && (*stack_b)->top->next
 				&& (*stack_b)->top->value < (*stack_b)->top->next->value)
 				sb(stack_b);
-			move_index(&i, &j, size);
+			move_index(&index, &offset, size);
 		}
 		else if ((*stack_a)->top->next)
 			ra(stack_a);

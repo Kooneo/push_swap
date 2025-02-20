@@ -1,11 +1,11 @@
 CC = cc
 NAME = push_swap
+CHECKER = checker
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS =  -fsanitize=address -g3 
+CFLAGS =  -Wall -Werror -Wextra -fsanitize=address -g3 
 
-SRC_FILES = push_swap.c \
-			push_stack.c \
+SRC_FILES = push_stack.c \
 			rotate_stack.c \
 			rrotate_stack.c \
 			swap_stack.c \
@@ -14,12 +14,21 @@ SRC_FILES = push_swap.c \
 			helpers.c \
 			args_check.c
 
-OBJ_FILES = $(SRC_FILES:.c=.o)
+PUSH_SWAP_FILES = push_swap.c 
+CHECKER_FILES = checker.c
+
+OBJ_FILES = $(SRC_FILES:.c=.o) $(PUSH_SWAP_FILES:.c=.o)
+BONUS_OBJ_FILES = $(SRC_FILES:.c=.o) $(CHECKER_FILES:.c=.o)
 
 all: $(NAME)
 
+bonus: $(CHECKER)
+
 $(NAME): $(OBJ_FILES) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ_FILES) $(LIBFT) -o $(NAME)
+
+$(CHECKER): $(BONUS_OBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) $(BONUS_OBJ_FILES) $(LIBFT) -o $(CHECKER)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR) 
@@ -28,14 +37,12 @@ $(LIBFT):
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: server_bonus client_bonus
-
 clean:
-	rm -f $(OBJ_FILES)
+	rm -f $(OBJ_FILES) $(BONUS_OBJ_FILES)
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(CHECKER)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
@@ -43,4 +50,4 @@ re: fclean all
 leaks:
 	sudo leaks --atExit  --  ./push_swap "66 0 31 87 16 29 20 15 48 81 47 53 52 9 12 1 23"
 
-.PHONY: all clean fclean re leaks
+.PHONY: all clean fclean re leaks bonus
