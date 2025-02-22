@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/20 12:26:52 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/22 18:31:26 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 			down++;
 		}
 		else
-		{
-			pa(a, b); // Push normally
-		}
+			pa(a, b);
 	}
 }
 

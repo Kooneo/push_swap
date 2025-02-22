@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/16 15:09:13 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/22 19:31:54 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ int	check_is_number(char *s)
 	return (1);
 }
 
+int check_if_int_range(char *num)
+{
+	ft_printf("len: %d\n", ft_atoi(num) > INT32_MAX);
+	if (ft_strlen(num) >= 11 && ft_atoi(num) < INT32_MIN) // -2147483648
+	{
+		return (0);
+	} else if ( ft_strlen(num) >= 10 && ft_atoi(num) > INT32_MAX)
+	{
+		return (0);
+	} else
+		return (1);
+}
+
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	int		i;
-	int		n;
+	long long	n;
 	t_node	*new_node;
 	char	**arr;
 	int		j;
@@ -62,7 +75,16 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 		j = 0;
 		while (arr[j] != NULL)
 		{
-			n = ft_atoi(arr[j]);
+			if (!check_if_int_range(arr[j]))q
+			{
+				show_error();
+			}
+			
+			n = (long long)ft_atoi(arr[j]);
+			ft_printf("%d\n", n);
+			if (n > INT32_MAX || n < INT32_MIN)
+				show_error();
+			
 			if (!(check_is_number(arr[j])) || check_is_dup(*stack_a, n))
 				show_error();
 			new_node = malloc(sizeof(t_node));
