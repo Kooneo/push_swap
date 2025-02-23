@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:14:54 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:51:27 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_node
 {
@@ -27,6 +28,7 @@ typedef struct s_stack
 	t_node			*top;
 }		t_stack;
 
+short	*get_is_printable();
 void	push_swap(t_stack **stack_a, t_stack **stack_b, int size);
 void	handle_args(t_stack **stack_a, int ac, char **argv);
 int		*make_reference(t_stack **stack_a, int size);
@@ -41,6 +43,7 @@ short	is_sorted(t_stack **stack_a);
 void	sort_2_nums(t_stack **stack_a);
 void	sort_3_nums(t_stack **stack_a);
 int		init_offset(int size);
+
 // Utils functions
 void	operation(char *op);
 t_node	*ft_slast(t_stack *stack);

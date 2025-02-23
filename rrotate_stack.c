@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:37:35 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:47:20 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:53:15 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	rrotate(t_stack **stack)
 void	rra(t_stack **stack_a)
 {
 	rrotate(stack_a);
-	operation("rra");
+	if (*(get_is_printable()))
+		operation("rra");
 }
 
 void	rrb(t_stack **stack_b)
 {
 	rrotate(stack_b);
-	operation("rrb");
+	if (*(get_is_printable()))
+		operation("rrb");
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b)
 {
 	rrotate(stack_a);
 	rrotate(stack_b);
-	operation("rrr");
+	if (*(get_is_printable()))
+		operation("rrr");
 }

@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:32:10 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:47:25 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:53:50 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ void	sa(t_stack **stack_a)
 {
 	if (stack_a)
 		swap_fs(*stack_a);
-	operation("sa");
+	if (*(get_is_printable()))
+		operation("sa");
 }
 
 void	sb(t_stack **stack_b)
 {
 	if (stack_b)
 		swap_fs(*stack_b);
-	operation("sb");
+	if (*(get_is_printable()))
+		operation("sb");
 }
 
 void	ss(t_stack **stack_a, t_stack **stack_b)
@@ -46,5 +48,6 @@ void	ss(t_stack **stack_a, t_stack **stack_b)
 		swap_fs(*stack_a);
 	if (stack_b)
 		swap_fs(*stack_b);
-	operation("ss");
+	if (*(get_is_printable()))
+		operation("ss");
 }

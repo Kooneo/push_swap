@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 17:33:24 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:47:00 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:54:09 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	stos(t_stack **stack_one, t_stack **stack_two)
 void	pb(t_stack **stack_a, t_stack **stack_b)
 {
 	stos(stack_b, stack_a);
-	operation("pb");
+	if (*(get_is_printable()))
+		operation("pb");
 }
 
 void	pa(t_stack **stack_a, t_stack **stack_b)
 {
 	stos(stack_a, stack_b);
-	operation("pa");
+	if (*(get_is_printable()))
+		operation("pa");
 }

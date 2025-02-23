@@ -6,11 +6,18 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:47:22 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 18:50:53 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+short *get_is_printable()
+{
+	static short is_printable;
+	
+	return &is_printable;
+}
 
 void	operation(char *op)
 {
