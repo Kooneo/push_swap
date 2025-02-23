@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 17:39:22 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 17:50:16 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	i = 1;
 	while (i < ac)
 	{
-		if (argv[i][0] == '\0' || argv[i][0] == ' ')
+		if (argv[i][0] == '\0' || !(argv[i][0] >= '0' && argv[i][0] <='9'))
 			show_error();
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
