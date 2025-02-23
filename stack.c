@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-short *get_is_printable()
+short	*get_is_printable(void)
 {
-	static short is_printable;
-	
-	return &is_printable;
+	static short	is_printable;
+
+	return (&is_printable);
 }
 
 void	operation(char *op)

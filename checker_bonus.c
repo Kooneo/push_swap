@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:25:27 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 20:29:03 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:30:50 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	print_stacks(t_stack *a, t_stack *b)
 	ft_printf("\n");
 }
 
-short is_op(char *to_check, const char *op)
+short	is_op(char *to_check, const char *op)
 {
 	return (ft_strcmp(to_check, op) == 0);
 }
 
-void do_operation(t_stack **a, t_stack **b, char *op)
+void	do_operation(t_stack **a, t_stack **b, char *op)
 {
 	if (is_op(op, "sa"))
 		sa(a);
@@ -69,7 +69,7 @@ void do_operation(t_stack **a, t_stack **b, char *op)
 		free_stacks(a, b);
 		free(op);
 		show_error();
-	}	
+	}
 }
 
 int	main(int ac, char **argv)
@@ -77,15 +77,16 @@ int	main(int ac, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	short	*print_op;
+	char	*operation;
 
 	stack_a = NULL;
 	stack_b = NULL;
-	print_op= get_is_printable();
+	print_op = get_is_printable();
 	*print_op = false;
 	if (ac != 1)
 	{
 		handle_args(&stack_a, ac, argv);
-		char *operation = ft_strtrim(get_next_line(0), "\n\t\v");
+		operation = ft_strtrim(get_next_line(0), "\n\t\v");
 		while (operation)
 		{
 			do_operation(&stack_a, &stack_b, operation);

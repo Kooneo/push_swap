@@ -77,7 +77,7 @@ void	move_index(int *index, int *offset, int size)
 		(*index)++;
 }
 
-static void pb_and_sb(t_stack **stack_a, t_stack **stack_b)
+static void	pb_and_sb(t_stack **stack_a, t_stack **stack_b)
 {
 	pb(stack_a, stack_b);
 	if ((*stack_b)->top && (*stack_b)->top->next
@@ -85,7 +85,7 @@ static void pb_and_sb(t_stack **stack_a, t_stack **stack_b)
 		sb(stack_b);
 }
 
-static void pb_and_rb(t_stack **stack_a, t_stack **stack_b)
+static void	pb_and_rb(t_stack **stack_a, t_stack **stack_b)
 {
 	pb(stack_a, stack_b);
 	if ((*stack_b)->top->next)

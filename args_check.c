@@ -91,7 +91,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	i = 1;
 	while (i < ac)
 	{
-		if (argv[i][0] == '\0' || !(argv[i][0] >= '0' && argv[i][0] <='9'))
+		if (argv[i][0] == '\0' || !(argv[i][0] >= '0' && argv[i][0] <= '9'))
 			show_error();
 		arr = ft_split(argv[i], ' ');
 		if (!arr)

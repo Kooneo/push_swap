@@ -19,7 +19,7 @@ int	main(int ac, char **argv)
 	int		size;
 	short	*print_op;
 
-	print_op= get_is_printable();
+	print_op = get_is_printable();
 	*print_op = true;
 	stack_a = NULL;
 	stack_b = NULL;
