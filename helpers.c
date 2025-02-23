@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:02:45 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:12:07 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:21:29 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ int	*make_reference(t_stack **stack_a, int size)
 	}
 	bubble_sort(ref, size);
 	return (ref);
+}
+
+int	init_offset(int size)
+{
+	int	offset;
+
+	offset = size / 10;
+	if (size <= 100)
+		offset = size / 7;
+	else if (size <= 7000)
+		offset = size / 14;
+	return (offset);
 }
 
 void	sort_3_nums(t_stack **stack_a)
@@ -112,16 +124,4 @@ void	sort_2_nums(t_stack **stack_a)
 	num2 = (*stack_a)->top->next->value;
 	if (num1 > num2)
 		sa(stack_a);
-}
-
-int	init_offset(int size)
-{
-	int	offset;
-
-	offset = size / 10;
-	if (size <= 100)
-		offset = size / 7;
-	else if (size <= 7000)
-		offset = size / 14;
-	return (offset);
 }

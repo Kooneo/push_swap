@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:14:13 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:44:15 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,29 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b, int size)
 	free(ref);
 }
 
+void	print_stack(t_stack *stack)
+{
+	t_node	*current;
+
+	if (!stack)
+		return ;
+	current = stack->top;
+	while (current)
+	{
+		ft_printf("%d\n", current->value);
+		current = current->next;
+	}
+}
+
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	ft_printf("─── A ───\n");
+	print_stack(a);
+	ft_printf("─── B ───\n");
+	print_stack(b);
+	ft_printf("\n");
+}
+
 int	main(int ac, char **argv)
 {
 	t_stack	*stack_a;
@@ -129,7 +152,9 @@ int	main(int ac, char **argv)
 		if (size == 3)
 			sort_3_nums(&stack_a);
 		else if (size == 2)
+		{
 			sort_2_nums(&stack_a);
+		}
 		free_stacks(&stack_a, &stack_b);
 		return (0);
 	}
@@ -137,26 +162,3 @@ int	main(int ac, char **argv)
 	free_stacks(&stack_a, &stack_b);
 	return (0);
 }
-
-// void	print_stack(t_stack *stack)
-// {
-// 	t_node	*current;
-
-// 	if (!stack)
-// 		return ;
-// 	current = stack->top;
-// 	while (current)
-// 	{
-// 		ft_printf("%d\n", current->value);
-// 		current = current->next;
-// 	}
-// }
-
-// void	print_stacks(t_stack *a, t_stack *b)
-// {
-// 	ft_printf("─── A ───\n");
-// 	print_stack(a);
-// 	ft_printf("─── B ───\n");
-// 	print_stack(b);
-// 	ft_printf("\n");
-// }
