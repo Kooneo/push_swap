@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:41:40 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/16 15:09:31 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:34:52 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,25 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	free_stack(t_stack *stack)
+void	free_stack(t_stack **stack)
 {
 	t_node	*current;
 	t_node	*next;
 
-	if (!stack)
+	if (!stack || !*stack )
 		return ;
-	current = stack->top;
+	current = (*stack)->top;
 	while (current)
 	{
 		next = current->next;
 		free(current);
 		current = next;
 	}
-	free(stack);
+	free(*stack);
+	*stack = NULL;
 }
 
-void	free_stacks(t_stack *stack_a, t_stack *stack_b)
+void	free_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	free_stack(stack_a);
 	free_stack(stack_b);

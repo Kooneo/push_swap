@@ -3,7 +3,7 @@ NAME = push_swap
 CHECKER = checker
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS =  -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 SRC_FILES = push_stack.c \
 			rotate_stack.c \
@@ -51,3 +51,4 @@ leaks:
 	sudo leaks --atExit  --  ./push_swap "66 0 31 87 16 29 20 15 48 81 47 53 52 9 12 1 23"
 
 .PHONY: all clean fclean re leaks bonus
+.SECONDARY: $(OBJ_FILES) $(BONUS_OBJ_FILES)

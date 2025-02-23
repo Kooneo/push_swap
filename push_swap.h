@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/16 15:14:03 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:35:22 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ int		calculate_n(int size);
 void	show_error(void);
 int		check_is_dup(t_stack *stack, int n);
 int		check_is_number(char *s);
-void    free_stack(t_stack *stack);
+void    free_stack(t_stack **stack);
 void    free_array(char **arr);
-void    free_stacks(t_stack *stack_a, t_stack *stack_b);
+void    free_stacks(t_stack **stack_a, t_stack **stack_b);
 int     ft_ssize(t_stack **stack);
-void	ft_free_stack(t_stack **stack);
 // Utils functions
 void	operation(char *op);
 t_node	*ft_slast(t_stack *stack);

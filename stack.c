@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:26:04 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:34:29 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,5 @@ int	ft_ssize(t_stack **stack)
 	return (size);
 }
 
-void	ft_free_stack(t_stack **stack)
-{
-	t_node	*current;
-	t_node	*next;
 
-	if (!stack || !*stack )
-		return ;
-	current = (*stack)->top;
-	while (current)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	free(*stack);
-	*stack = NULL;
-}
 

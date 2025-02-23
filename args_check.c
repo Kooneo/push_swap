@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:23:59 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:35:49 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	check_is_number(char *s)
 		
 		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-')
 			|| (s[i] == '-' && s[i + 1] == '-')
-			|| (i != 0 && s[i] == '-')
-		)
+			|| (i != 0 && s[i] == '-'))
 			return (0);
 		i++;
 	}
@@ -73,16 +72,6 @@ long long	ft_atoi_push_swap(const char *nptr)
 	return (total * sign);
 }
 
-int array_size(char **arr)
-{
-	int i = 0;
-	while (arr[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	int		i;
@@ -95,34 +84,34 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	while (i < ac)
 	{
 		if (argv[i][0] == '\0')
-			show_error(); // Add stack freeing if needed
+			show_error();
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
 		{
-			ft_free_stack(stack_a);
+			free_stack(stack_a);
 			show_error();
 		}
 		j = 0;
 		while (arr[j] != NULL)
 		{
 			n = ft_atoi_push_swap(arr[j]);
-			if (n > INT32_MAX || n < INT32_MIN) // Leaks!!!
+			if (n > INT32_MAX || n < INT32_MIN)
 			{
 				free_array(arr);
-				ft_free_stack(stack_a);
+				free_stack(stack_a);
 				show_error();
 			}
 			if ((!(check_is_number(arr[j])) || check_is_dup(*stack_a, n)))
 			{
 				free_array(arr);
-				// ft_free_stack(stack_a);
+				free_stack(stack_a);
 				show_error();
 			}
 			new_node = malloc(sizeof(t_node));
 			if (!new_node)
 			{
 				free_array(arr);
-				ft_free_stack(stack_a);
+				free_stack(stack_a);
 				show_error();
 			}
 			new_node->value = n;

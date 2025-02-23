@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 13:48:08 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:35:06 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,6 @@ int	main(int ac, char **argv)
 		print_stacks(stack_a, stack_b);
 		push_swap(&stack_a, &stack_b);
 	}
-	free_stacks(stack_a, stack_b);
+	free_stacks(&stack_a, &stack_b);
 	return (0);
 }
