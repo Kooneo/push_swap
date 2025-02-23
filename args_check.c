@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 13:33:52 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:23:59 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	check_is_number(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-') || (s[i] == '-'
-				&& s[i + 1] == '-'))
+		
+		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-')
+			|| (s[i] == '-' && s[i + 1] == '-')
+			|| (i != 0 && s[i] == '-')
+		)
 			return (0);
 		i++;
 	}
-	if (s[i - 1] == '-') // if entred -223-: - at the end
-		return (0);
 	return (1);
 }
 
@@ -71,6 +72,17 @@ long long	ft_atoi_push_swap(const char *nptr)
 	}
 	return (total * sign);
 }
+
+int array_size(char **arr)
+{
+	int i = 0;
+	while (arr[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	int		i;
@@ -100,10 +112,10 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 				ft_free_stack(stack_a);
 				show_error();
 			}
-			if (!(check_is_number(arr[j])) || check_is_dup(*stack_a, n))
+			if ((!(check_is_number(arr[j])) || check_is_dup(*stack_a, n)))
 			{
 				free_array(arr);
-				ft_free_stack(stack_a);
+				// ft_free_stack(stack_a);
 				show_error();
 			}
 			new_node = malloc(sizeof(t_node));

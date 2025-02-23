@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:18:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/01 18:45:29 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:26:04 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_free_stack(t_stack **stack)
 	t_node	*current;
 	t_node	*next;
 
-	if (!stack || *stack)
+	if (!stack || !*stack )
 		return ;
 	current = (*stack)->top;
 	while (current)

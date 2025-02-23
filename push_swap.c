@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 13:34:38 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:48:08 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,29 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b)
 	free(ref);
 }
 
+void	print_stack(t_stack *stack)
+{
+	t_node	*current;
+
+	if (!stack)
+		return ;
+	current = stack->top;
+	while (current)
+	{
+		ft_printf("%d\n", current->value);
+		current = current->next;
+	}
+}
+
+void	print_stacks(t_stack *a, t_stack *b)
+{
+	ft_printf("─── A ───\n");
+	print_stack(a);
+	ft_printf("─── B ───\n");
+	print_stack(b);
+	ft_printf("\n");
+}
+
 int	main(int ac, char **argv)
 {
 	t_stack	*stack_a;
@@ -201,6 +224,7 @@ int	main(int ac, char **argv)
 	if (ac != 1)
 	{
 		handle_args(&stack_a, ac, argv);
+		print_stacks(stack_a, stack_b);
 		push_swap(&stack_a, &stack_b);
 	}
 	free_stacks(stack_a, stack_b);
