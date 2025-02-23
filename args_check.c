@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/22 19:31:54 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:33:52 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,11 @@ int	check_is_number(char *s)
 	return (1);
 }
 
-int check_if_int_range(char *num)
-{
-	int i = 0;
-	int res = 0;
-	short is_negative = 0;
-	while (num[i] == '0')
-		i++;
-	
-	if (num[i] == '-')
-	{
-		is_negative = 1;
-		i++;
-	}
-	
-	while (i < (int)ft_strlen(num))
-	{
-		res += num[i];
-		i++;
-	}
-	if (res > 526)
-	{
-		return (0);
-	}
-	ft_printf("result: %d\n", res);
-	return 1;
-}
-
-long	ft_atoi_push_(const char *nptr)
+long long	ft_atoi_push_swap(const char *nptr)
 {
 	int		sign;
 	int		i;
-	long	total;
+	long long	total;
 
 	total = 0;
 	i = 0;
@@ -101,7 +74,7 @@ long	ft_atoi_push_(const char *nptr)
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	int		i;
-	long	n;
+	long long	n;
 	t_node	*new_node;
 	char	**arr;
 	int		j;
@@ -120,8 +93,8 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 		j = 0;
 		while (arr[j] != NULL)
 		{
-			n = ft_atoi_push_(arr[j]);
-			if (n > INT32_MAX || n < INT32_MIN)
+			n = ft_atoi_push_swap(arr[j]);
+			if (n > INT32_MAX || n < INT32_MIN) // Leaks!!!
 			{
 				free_array(arr);
 				ft_free_stack(stack_a);

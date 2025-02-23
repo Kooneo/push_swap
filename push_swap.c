@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/22 18:31:26 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:34:38 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 	int		max_pos;
 	int		max_val;
 	t_node	*current;
-	int		size_b;
+	int		size;
 	int		i;
 
 	int down = 0; // Track numbers at the bottom of A
 	while (*b && (*b)->top)
 	{
-		size_b = ft_ssize(b);
+		size = ft_ssize(b);
 		current = (*b)->top;
 		max_val = current->value;
 		max_pos = 0;
 		current = current->next;
 		// Find the maximum value and its position in B
 		i = 1;
-		while (i < size_b)
+		while (i < size)
 		{
 			if (current->value > max_val)
 			{
@@ -86,7 +86,7 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 			i++;
 		}
 		// Rotate or reverse rotate to bring max to the top
-		if (max_pos <= size_b / 2)
+		if (max_pos <= size / 2)
 		{
 			i = 0;
 			while (i++ < max_pos)
@@ -95,7 +95,7 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 		else
 		{
 			i = 0;
-			while (i++ < size_b - max_pos)
+			while (i++ < size - max_pos)
 				rrb(b);
 		}
 		// Find the bottom value of A
