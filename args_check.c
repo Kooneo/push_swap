@@ -47,21 +47,61 @@ int	check_is_number(char *s)
 
 int check_if_int_range(char *num)
 {
-	ft_printf("len: %d\n", ft_atoi(num) > INT32_MAX);
-	if (ft_strlen(num) >= 11 && ft_atoi(num) < INT32_MIN) // -2147483648
+	int i = 0;
+	int res = 0;
+	short is_negative = 0;
+	while (num[i] == '0')
+		i++;
+	
+	if (num[i] == '-')
+	{
+		is_negative = 1;
+		i++;
+	}
+	
+	while (i < (int)ft_strlen(num))
+	{
+		res += num[i];
+		i++;
+	}
+	if (res > 526)
 	{
 		return (0);
-	} else if ( ft_strlen(num) >= 10 && ft_atoi(num) > INT32_MAX)
-	{
-		return (0);
-	} else
-		return (1);
+	}
+	ft_printf("result: %d\n", res);
+	return 1;
 }
 
+long	ft_atoi_push_(const char *nptr)
+{
+	int		sign;
+	int		i;
+	long	total;
+
+	total = 0;
+	i = 0;
+	sign = 1;
+	while (nptr[i] == ' ' || nptr[i] == '\t' || nptr[i] == '\n'
+		|| nptr[i] == '\v' || nptr[i] == '\f' || nptr[i] == '\r')
+		i++;
+	if (nptr[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		total = total * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (total * sign);
+}
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	int		i;
-	long long	n;
+	long	n;
 	t_node	*new_node;
 	char	**arr;
 	int		j;
@@ -70,26 +110,36 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	while (i < ac)
 	{
 		if (argv[i][0] == '\0')
-			show_error();
+			show_error(); // Add stack freeing if needed
 		arr = ft_split(argv[i], ' ');
+		if (!arr)
+		{
+			ft_free_stack(stack_a);
+			show_error();
+		}
 		j = 0;
 		while (arr[j] != NULL)
 		{
-			if (!check_if_int_range(arr[j]))q
+			n = ft_atoi_push_(arr[j]);
+			if (n > INT32_MAX || n < INT32_MIN)
 			{
+				free_array(arr);
+				ft_free_stack(stack_a);
 				show_error();
 			}
-			
-			n = (long long)ft_atoi(arr[j]);
-			ft_printf("%d\n", n);
-			if (n > INT32_MAX || n < INT32_MIN)
-				show_error();
-			
 			if (!(check_is_number(arr[j])) || check_is_dup(*stack_a, n))
+			{
+				free_array(arr);
+				ft_free_stack(stack_a);
 				show_error();
+			}
 			new_node = malloc(sizeof(t_node));
 			if (!new_node)
+			{
+				free_array(arr);
+				ft_free_stack(stack_a);
 				show_error();
+			}
 			new_node->value = n;
 			new_node->next = NULL;
 			ft_sadd_back(stack_a, new_node);

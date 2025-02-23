@@ -71,3 +71,22 @@ int	ft_ssize(t_stack **stack)
 	}
 	return (size);
 }
+
+void	ft_free_stack(t_stack **stack)
+{
+	t_node	*current;
+	t_node	*next;
+
+	if (!stack || *stack)
+		return ;
+	current = (*stack)->top;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	free(*stack);
+	*stack = NULL;
+}
+

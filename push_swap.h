@@ -36,6 +36,7 @@ void    free_stack(t_stack *stack);
 void    free_array(char **arr);
 void    free_stacks(t_stack *stack_a, t_stack *stack_b);
 int     ft_ssize(t_stack **stack);
+void	ft_free_stack(t_stack **stack);
 // Utils functions
 void	operation(char *op);
 t_node	*ft_slast(t_stack *stack);
