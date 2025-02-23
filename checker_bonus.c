@@ -6,41 +6,18 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:25:27 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 20:30:50 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 22:56:38 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_stack *stack)
-{
-	t_node	*current;
-
-	if (!stack)
-		return ;
-	current = stack->top;
-	while (current)
-	{
-		ft_printf("%d\n", current->value);
-		current = current->next;
-	}
-}
-
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	ft_printf("─── A ───\n");
-	print_stack(a);
-	ft_printf("─── B ───\n");
-	print_stack(b);
-	ft_printf("\n");
-}
 
 short	is_op(char *to_check, const char *op)
 {
 	return (ft_strcmp(to_check, op) == 0);
 }
 
-void	do_operation(t_stack **a, t_stack **b, char *op)
+int	do_operation(t_stack **a, t_stack **b, char *op)
 {
 	if (is_op(op, "sa"))
 		sa(a);
@@ -65,11 +42,29 @@ void	do_operation(t_stack **a, t_stack **b, char *op)
 	else if (is_op(op, "rrr"))
 		rrr(a, b);
 	else
+		return (0);
+	return (1);
+}
+
+void	handle_operations(t_stack **a, t_stack **b, char *op)
+{
+	if (do_operation(a, b, op))
+		;
+	else
 	{
 		free_stacks(a, b);
 		free(op);
 		show_error();
 	}
+}
+
+void	chech_result(t_stack **stack_a, t_stack **stack_b)
+{
+	if (!is_sorted(stack_a) || (*stack_b && ft_ssize(stack_b) > 0))
+		ft_putendl_fd("KO", 1);
+	else
+		ft_putendl_fd("OK", 1);
+	free_stacks(stack_a, stack_b);
 }
 
 int	main(int ac, char **argv)
@@ -89,15 +84,11 @@ int	main(int ac, char **argv)
 		operation = ft_strtrim(get_next_line(0), "\n\t\v");
 		while (operation)
 		{
-			do_operation(&stack_a, &stack_b, operation);
+			handle_operations(&stack_a, &stack_b, operation);
 			free(operation);
 			operation = ft_strtrim(get_next_line(0), "\n\t\v");
 		}
-		if (!is_sorted(&stack_a))
-			ft_putendl_fd("KO", 1);
-		else
-			ft_putendl_fd("OK", 1);
-		free_stacks(&stack_a, &stack_b);
+		chech_result(&stack_a, &stack_b);
 	}
 	free_stacks(&stack_a, &stack_b);
 	return (0);
