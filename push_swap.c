@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 16:44:15 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:44:39 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,7 @@ int	main(int ac, char **argv)
 		if (size == 3)
 			sort_3_nums(&stack_a);
 		else if (size == 2)
-		{
 			sort_2_nums(&stack_a);
-		}
 		free_stacks(&stack_a, &stack_b);
 		return (0);
 	}
