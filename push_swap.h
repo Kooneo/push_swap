@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:56:44 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:14:54 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct s_stack
 	t_node			*top;
 }		t_stack;
 
+void	push_swap(t_stack **stack_a, t_stack **stack_b, int size);
 void	handle_args(t_stack **stack_a, int ac, char **argv);
 int		*make_reference(t_stack **stack_a, int size);
-void	update_chunk_range(int *params);
-int		calculate_n(int size);
 void	show_error(void);
 int		check_is_dup(t_stack *stack, int n);
 int		check_is_number(char *s);
@@ -38,6 +37,10 @@ void	free_stack(t_stack **stack);
 void	free_array(char **arr);
 void	free_stacks(t_stack **stack_a, t_stack **stack_b);
 int		ft_ssize(t_stack **stack);
+short	is_sorted(t_stack **stack_a);
+void	sort_2_nums(t_stack **stack_a);
+void	sort_3_nums(t_stack **stack_a);
+int		init_offset(int size);
 // Utils functions
 void	operation(char *op);
 t_node	*ft_slast(t_stack *stack);

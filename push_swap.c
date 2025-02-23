@@ -3,59 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:35:06 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:14:13 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	sort_3_nums(t_stack **stack_a)
-{
-	int	num1;
-	int	num2;
-	int	num3;
-	int	max;
-
-	if (!stack_a || !(*stack_a) || !(*stack_a)->top || !(*stack_a)->top->next
-		|| !(*stack_a)->top->next->next)
-		return ;
-	num1 = (*stack_a)->top->value;
-	num2 = (*stack_a)->top->next->value;
-	num3 = (*stack_a)->top->next->next->value;
-	max = num1;
-	if (num2 > max)
-		max = num2;
-	if (num3 > max)
-		max = num3;
-	if (num1 == max)
-	{
-		if (num2 > num3)
-		{
-			sa(stack_a);
-			rra(stack_a);
-		}
-		else
-			ra(stack_a);
-	}
-	else if (num2 == max)
-	{
-		if (num1 > num3)
-			rra(stack_a);
-		else
-		{
-			sa(stack_a);
-			ra(stack_a);
-		}
-	}
-	else
-	{
-		if (num1 > num2)
-			sa(stack_a);
-	}
-}
 
 static void	push_back_to_a(t_stack **a, t_stack **b)
 {
@@ -114,18 +69,6 @@ static void	push_back_to_a(t_stack **a, t_stack **b)
 	}
 }
 
-int	init_offset(int size)
-{
-	int	offset;
-
-	offset = size / 10;
-	if (size <= 100)
-		offset = size / 7;
-	else if (size <= 7000)
-		offset = size / 14;
-	return (offset);
-}
-
 void	move_index(int *index, int *offset, int size)
 {
 	if ((*offset) < size - 1)
@@ -134,37 +77,12 @@ void	move_index(int *index, int *offset, int size)
 		(*index)++;
 }
 
-short	is_sorted(t_stack **stack_a)
+void	push_swap(t_stack **stack_a, t_stack **stack_b, int size)
 {
-	t_node	*current;
-	short	is_not_sorted;
-
-	current = (*stack_a)->top;
-	is_not_sorted = 0;
-	while (current != NULL)
-	{
-		if (current->next != NULL)
-		{
-			if (current->value > current->next->value)
-				is_not_sorted = 1;
-		}
-		current = current->next;
-	}
-	return (!is_not_sorted);
-}
-
-void	push_swap(t_stack **stack_a, t_stack **stack_b)
-{
-	int	size;
 	int	*ref;
 	int	index;
 	int	offset;
 
-	if (!stack_a || !*stack_a || !(*stack_a)->top)
-		return ;
-	size = ft_ssize(stack_a);
-	if (size == 3)
-		return (sort_3_nums(stack_a));
 	ref = make_reference(stack_a, size);
 	index = 0;
 	offset = init_offset(size);
@@ -192,42 +110,53 @@ void	push_swap(t_stack **stack_a, t_stack **stack_b)
 	free(ref);
 }
 
-void	print_stack(t_stack *stack)
-{
-	t_node	*current;
-
-	if (!stack)
-		return ;
-	current = stack->top;
-	while (current)
-	{
-		ft_printf("%d\n", current->value);
-		current = current->next;
-	}
-}
-
-void	print_stacks(t_stack *a, t_stack *b)
-{
-	ft_printf("─── A ───\n");
-	print_stack(a);
-	ft_printf("─── B ───\n");
-	print_stack(b);
-	ft_printf("\n");
-}
-
 int	main(int ac, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	int		size;
 
 	stack_a = NULL;
 	stack_b = NULL;
-	if (ac != 1)
+	if (ac == 1)
+		return (0);
+	handle_args(&stack_a, ac, argv);
+	if (!stack_a || !(*stack_a).top || is_sorted(&stack_a))
+		return (0);
+	size = ft_ssize(&stack_a);
+	if (size <= 3)
 	{
-		handle_args(&stack_a, ac, argv);
-		print_stacks(stack_a, stack_b);
-		push_swap(&stack_a, &stack_b);
+		if (size == 3)
+			sort_3_nums(&stack_a);
+		else if (size == 2)
+			sort_2_nums(&stack_a);
+		free_stacks(&stack_a, &stack_b);
+		return (0);
 	}
+	push_swap(&stack_a, &stack_b, size);
 	free_stacks(&stack_a, &stack_b);
 	return (0);
 }
+
+// void	print_stack(t_stack *stack)
+// {
+// 	t_node	*current;
+
+// 	if (!stack)
+// 		return ;
+// 	current = stack->top;
+// 	while (current)
+// 	{
+// 		ft_printf("%d\n", current->value);
+// 		current = current->next;
+// 	}
+// }
+
+// void	print_stacks(t_stack *a, t_stack *b)
+// {
+// 	ft_printf("─── A ───\n");
+// 	print_stack(a);
+// 	ft_printf("─── B ───\n");
+// 	print_stack(b);
+// 	ft_printf("\n");
+// }

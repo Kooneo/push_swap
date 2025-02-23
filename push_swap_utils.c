@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 18:41:40 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:34:52 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:22:14 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,21 @@ void	free_stacks(t_stack **stack_a, t_stack **stack_b)
 {
 	free_stack(stack_a);
 	free_stack(stack_b);
+}
+
+short	is_sorted(t_stack **stack_a)
+{
+	t_node	*current;
+
+	current = (*stack_a)->top;
+	while (current != NULL)
+	{
+		if (current->next != NULL)
+		{
+			if (current->value > current->next->value)
+				return (0);
+		}
+		current = current->next;
+	}
+	return (1);
 }

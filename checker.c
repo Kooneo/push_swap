@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 12:25:27 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/20 12:28:53 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:47:35 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int	main(int ac, char **argv)
 		// push_swap(&stack_a, &stack_b);
 		print_stacks(stack_a, stack_b);
 	}
-	free_stacks(stack_a, stack_b);
+	free_stacks(&stack_a, &stack_b);
 	return (0);
 }

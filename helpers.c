@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:02:45 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/16 16:13:56 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 16:12:07 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,72 @@ int	*make_reference(t_stack **stack_a, int size)
 	return (ref);
 }
 
-void	update_chunk_range(int *params)
+void	sort_3_nums(t_stack **stack_a)
 {
-	ft_printf("start: %d\n", params[3]);
-	ft_printf("end: %d\n", params[4]);
-	params[3] -= params[2];
-	params[4] += params[2];
-	ft_printf("start: %d\n", params[3]);
-	ft_printf("end: %d\n", params[4]);
+	int	num1;
+	int	num2;
+	int	num3;
+	int	max;
+
+	if (!stack_a || !(*stack_a) || !(*stack_a)->top || !(*stack_a)->top->next
+		|| !(*stack_a)->top->next->next)
+		return ;
+	num1 = (*stack_a)->top->value;
+	num2 = (*stack_a)->top->next->value;
+	num3 = (*stack_a)->top->next->next->value;
+	max = num1;
+	if (num2 > max)
+		max = num2;
+	if (num3 > max)
+		max = num3;
+	if (num1 == max)
+	{
+		if (num2 > num3)
+		{
+			sa(stack_a);
+			rra(stack_a);
+		}
+		else
+			ra(stack_a);
+	}
+	else if (num2 == max)
+	{
+		if (num1 > num3)
+			rra(stack_a);
+		else
+		{
+			sa(stack_a);
+			ra(stack_a);
+		}
+	}
+	else
+	{
+		if (num1 > num2)
+			sa(stack_a);
+	}
 }
 
-int	calculate_n(int size)
+void	sort_2_nums(t_stack **stack_a)
 {
-	int	n;
+	int	num1;
+	int	num2;
 
-	n = 18;
-	if (size <= 10)
-		n = 5;
-	else if (size <= 150)
-		n = 8;
-	return (n);
+	if (!stack_a || !(*stack_a) || !(*stack_a)->top || !(*stack_a)->top->next)
+		return ;
+	num1 = (*stack_a)->top->value;
+	num2 = (*stack_a)->top->next->value;
+	if (num1 > num2)
+		sa(stack_a);
+}
+
+int	init_offset(int size)
+{
+	int	offset;
+
+	offset = size / 10;
+	if (size <= 100)
+		offset = size / 7;
+	else if (size <= 7000)
+		offset = size / 14;
+	return (offset);
 }
