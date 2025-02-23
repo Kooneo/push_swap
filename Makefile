@@ -3,7 +3,7 @@ NAME = push_swap
 CHECKER = checker
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS =  -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS =  -Wall -Werror -Wextra
 
 SRC_FILES = push_stack.c \
 			rotate_stack.c \
