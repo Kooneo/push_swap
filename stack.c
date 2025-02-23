@@ -71,6 +71,3 @@ int	ft_ssize(t_stack **stack)
 	}
 	return (size);
 }
-
-
-

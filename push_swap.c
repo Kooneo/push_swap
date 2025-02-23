@@ -136,10 +136,11 @@ void	move_index(int *index, int *offset, int size)
 
 short	is_sorted(t_stack **stack_a)
 {
-	t_node *current;
+	t_node	*current;
+	short	is_not_sorted;
 
 	current = (*stack_a)->top;
-	short is_not_sorted = 0;
+	is_not_sorted = 0;
 	while (current != NULL)
 	{
 		if (current->next != NULL)

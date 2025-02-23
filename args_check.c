@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 14:35:49 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:52:25 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ int	check_is_number(char *s)
 	i = 0;
 	while (s[i])
 	{
-		
-		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-')
-			|| (s[i] == '-' && s[i + 1] == '-')
-			|| (i != 0 && s[i] == '-'))
+		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-') || (s[i] == '-'
+				&& s[i + 1] == '-') || (i != 0 && s[i] == '-'))
 			return (0);
 		i++;
 	}
@@ -47,8 +45,8 @@ int	check_is_number(char *s)
 
 long long	ft_atoi_push_swap(const char *nptr)
 {
-	int		sign;
-	int		i;
+	int			sign;
+	int			i;
 	long long	total;
 
 	total = 0;
@@ -72,13 +70,20 @@ long long	ft_atoi_push_swap(const char *nptr)
 	return (total * sign);
 }
 
+void	error_and_free(char **arr, t_stack **stack)
+{
+	free_array(arr);
+	free_stack(stack);
+	show_error();
+}
+
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
-	int		i;
+	int			i;
 	long long	n;
-	t_node	*new_node;
-	char	**arr;
-	int		j;
+	t_node		*new_node;
+	char		**arr;
+	int			j;
 
 	i = 1;
 	while (i < ac)
@@ -87,33 +92,17 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 			show_error();
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
-		{
-			free_stack(stack_a);
-			show_error();
-		}
+			error_and_free(arr, stack_a);
 		j = 0;
 		while (arr[j] != NULL)
 		{
 			n = ft_atoi_push_swap(arr[j]);
-			if (n > INT32_MAX || n < INT32_MIN)
-			{
-				free_array(arr);
-				free_stack(stack_a);
-				show_error();
-			}
-			if ((!(check_is_number(arr[j])) || check_is_dup(*stack_a, n)))
-			{
-				free_array(arr);
-				free_stack(stack_a);
-				show_error();
-			}
+			if ((n > INT32_MAX || n < INT32_MIN) || (!(check_is_number(arr[j]))
+					|| check_is_dup(*stack_a, n)))
+				error_and_free(arr, stack_a);
 			new_node = malloc(sizeof(t_node));
 			if (!new_node)
-			{
-				free_array(arr);
-				free_stack(stack_a);
-				show_error();
-			}
+				error_and_free(arr, stack_a);
 			new_node->value = n;
 			new_node->next = NULL;
 			ft_sadd_back(stack_a, new_node);

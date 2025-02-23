@@ -36,7 +36,7 @@ void	free_stack(t_stack **stack)
 	t_node	*current;
 	t_node	*next;
 
-	if (!stack || !*stack )
+	if (!stack || !*stack)
 		return ;
 	current = (*stack)->top;
 	while (current)

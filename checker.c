@@ -46,7 +46,7 @@ int	main(int ac, char **argv)
 	{
 		handle_args(&stack_a, ac, argv);
 		// push_swap(&stack_a, &stack_b);
-        print_stacks(stack_a, stack_b);
+		print_stacks(stack_a, stack_b);
 	}
 	free_stacks(stack_a, stack_b);
 	return (0);
