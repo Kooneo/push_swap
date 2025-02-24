@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 17:50:16 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/24 11:35:39 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ void	error_and_free(char **arr, t_stack **stack)
 
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
-	int			i;
-	long long	n;
-	t_node		*new_node;
 	char		**arr;
+	int			i;
 	int			j;
 
 	i = 1;
@@ -99,16 +97,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 		j = 0;
 		while (arr[j] != NULL)
 		{
-			n = ft_atoi_push_swap(arr[j]);
-			if ((n > INT32_MAX || n < INT32_MIN) || (!(check_is_number(arr[j]))
-					|| check_is_dup(*stack_a, n)))
-				error_and_free(arr, stack_a);
-			new_node = malloc(sizeof(t_node));
-			if (!new_node)
-				error_and_free(arr, stack_a);
-			new_node->value = n;
-			new_node->next = NULL;
-			ft_sadd_back(stack_a, new_node);
+			make_and_to_stack(stack_a, arr, arr[j]);
 			j++;
 		}
 		free_array(arr);

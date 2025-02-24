@@ -11,11 +11,14 @@ SRC_FILES = push_stack.c \
 			swap_stack.c \
 			stack.c \
 			push_swap_algo.c \
+			push_back.c \
 			push_swap_utils.c \
 			helpers.c \
+			push_swap_utils_2.c \
 			args_check.c
 
-PUSH_SWAP_FILES = push_swap.c 
+PUSH_SWAP_FILES = push_swap.c \
+					sort_three.c 
 CHECKER_FILES =	checker_bonus.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o) $(PUSH_SWAP_FILES:.c=.o)

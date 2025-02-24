@@ -6,15 +6,15 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:04:06 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/23 22:47:10 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/23 22:58:44 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void sort_a(t_stack **stack_a, t_stack **stack_b)
+static void	sort_a(t_stack **stack_a, t_stack **stack_b)
 {
-	int size;
+	int	size;
 
 	if (!stack_a || !(*stack_a)->top || is_sorted(stack_a))
 		return ;
