@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/24 11:35:39 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:40:20 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	check_is_number(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (ft_strlen(s) == 1 && s[i] == '-')
+		if (ft_strlen(s) == 1 && (s[i] == '-' || s[i] == '+'))
 			return (0);
-		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-'))
+		if (!((s[i] >= '0' && s[i] <= '9') || s[i] == '-' || s[i] == '+'))
 			return (0);
-		if ((s[i] == '-' && s[i + 1] == '-') || (i != 0 && s[i] == '-'))
+		if ((i != 0 && (s[i] == '-' || s[i] == '+')))
 			return (0);
 		i++;
 	}
@@ -89,7 +89,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	i = 1;
 	while (i < ac)
 	{
-		if (argv[i][0] == '\0' || !(argv[i][0] >= '0' && argv[i][0] <= '9'))
+		if (argv[i][0] == '\0')
 			show_error();
 		arr = ft_split(argv[i], ' ');
 		if (!arr)

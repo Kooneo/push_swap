@@ -3,21 +3,21 @@ NAME = push_swap
 CHECKER = checker
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 SRC_FILES = push_stack.c \
 			rotate_stack.c \
 			rrotate_stack.c \
 			swap_stack.c \
 			stack.c \
-			push_swap_algo.c \
-			push_back.c \
 			push_swap_utils.c \
 			helpers.c \
 			push_swap_utils_2.c \
 			args_check.c
 
 PUSH_SWAP_FILES = push_swap.c \
+					push_swap_algo.c \
+					push_back.c \
 					sort_three.c 
 CHECKER_FILES =	checker_bonus.c
 
