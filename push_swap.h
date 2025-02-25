@@ -43,7 +43,7 @@ short		is_sorted(t_stack **stack_a);
 void		sort_2_nums(t_stack **stack_a);
 void		sort_3_nums(t_stack **stack_a);
 int			init_offset(int size);
-long long	ft_atoi_push_swap(const char *nptr);
+long long	ft_atoi_push_swap(t_stack **stack_a, char **arr, const char *nptr);
 void		error_and_free(char **arr, t_stack **stack);
 void		make_and_to_stack(t_stack **stack_a, char **arr, char *num);
 void		push_back_to_a(t_stack **a, t_stack **b);

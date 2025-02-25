@@ -12,16 +12,42 @@
 
 #include "push_swap.h"
 
+long long	ft_atoi_push_swap(t_stack **stack_a, char **arr, const char *nptr)
+{
+	int			sign;
+	int			i;
+	long long	total;
+
+	total = 0;
+	i = 0;
+	sign = 1;
+	while (nptr[i] == ' ' || nptr[i] == '\t' || nptr[i] == '\n'
+		|| nptr[i] == '\v' || nptr[i] == '\f' || nptr[i] == '\r')
+		i++;
+	if (nptr[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		total = total * 10 + (nptr[i++] - '0');
+		if (total * sign > INT32_MAX || total * sign < INT32_MIN )
+			error_and_free(arr, stack_a);
+	}
+	return (total * sign);
+}
+
 void	make_and_to_stack(t_stack **stack_a, char **arr, char *num)
 {
 	long long	n;
 	t_node		*new_node;
 
-	n = ft_atoi_push_swap(num);
-	if (n > INT32_MAX || n < INT32_MIN || (!(check_is_number(num))
-			|| check_is_dup(*stack_a, n)) 
-			|| ((ft_strlen(num) > 11) && (n > INT32_MAX || n < INT32_MIN )))
-				error_and_free(arr, stack_a);
+	n = ft_atoi_push_swap(stack_a, arr, num);
+	if (!(check_is_number(num)) || check_is_dup(*stack_a, n))
+		error_and_free(arr, stack_a);
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
 		error_and_free(arr, stack_a);
