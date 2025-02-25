@@ -75,7 +75,8 @@ long long	ft_atoi_push_swap(const char *nptr)
 
 void	error_and_free(char **arr, t_stack **stack)
 {
-	free_array(arr);
+	if (arr)
+		free_array(arr);
 	free_stack(stack);
 	show_error();
 }
@@ -90,7 +91,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	while (i < ac)
 	{
 		if (argv[i][0] == '\0')
-			error_and_free(argv, stack_a);
+			error_and_free(NULL, stack_a);
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
 			error_and_free(arr, stack_a);
