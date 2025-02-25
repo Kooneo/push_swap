@@ -19,27 +19,27 @@ short	is_op(char *to_check, const char *op)
 
 int	do_operation(t_stack **a, t_stack **b, char *op)
 {
-	if (is_op(op, "sa"))
+	if (is_op(op, "sa\n"))
 		sa(a);
-	else if (is_op(op, "sb"))
+	else if (is_op(op, "sb\n"))
 		sb(b);
-	else if (is_op(op, "ss"))
+	else if (is_op(op, "ss\n"))
 		ss(a, b);
-	else if (is_op(op, "pa"))
+	else if (is_op(op, "pa\n"))
 		pa(a, b);
-	else if (is_op(op, "pb"))
+	else if (is_op(op, "pb\n"))
 		pb(a, b);
-	else if (is_op(op, "ra"))
+	else if (is_op(op, "ra\n"))
 		ra(a);
-	else if (is_op(op, "rb"))
+	else if (is_op(op, "rb\n"))
 		rb(b);
-	else if (is_op(op, "rr"))
+	else if (is_op(op, "rr\n"))
 		rr(a, b);
-	else if (is_op(op, "rra"))
+	else if (is_op(op, "rra\n"))
 		rra(a);
-	else if (is_op(op, "rrb"))
+	else if (is_op(op, "rrb\n"))
 		rrb(b);
-	else if (is_op(op, "rrr"))
+	else if (is_op(op, "rrr\n"))
 		rrr(a, b);
 	else
 		return (0);
@@ -74,7 +74,6 @@ int	main(int ac, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	short	*print_op;
-	char	*operation;
 	char	*read_line;
 
 	stack_a = NULL;
@@ -87,10 +86,8 @@ int	main(int ac, char **argv)
 		read_line = get_next_line(0);
 		while (read_line)
 		{
-			operation = ft_strtrim(read_line, "\n\t\v");
+			handle_operations(&stack_a, &stack_b, read_line);
 			free(read_line);
-			handle_operations(&stack_a, &stack_b, operation);
-			free(operation);
 			read_line = get_next_line(0);
 		}
 		check_result(&stack_a, &stack_b);
