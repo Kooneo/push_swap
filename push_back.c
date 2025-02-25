@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:53:22 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/24 14:04:40 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/25 16:01:32 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,22 @@ void	rotate_or_reverse_max(t_stack **b, int max_pos, int size)
 	}
 }
 
+t_node	*get_bottom_stack(t_stack **stack)
+{
+	t_node	*bottom;
+
+	bottom = (*stack)->top;
+	while (bottom && bottom->next)
+		bottom = bottom->next;
+	return (bottom);
+}
+
 void	push_back_to_a(t_stack **a, t_stack **b)
 {
 	int		max_pos;
 	int		max_val;
 	int		size;
-
+	
 	int down = 0; // Track numbers at the bottom of A
 	while (*b && (*b)->top)
 	{
@@ -68,11 +78,9 @@ void	push_back_to_a(t_stack **a, t_stack **b)
 		// Rotate or reverse rotate to bring max to the top
 		rotate_or_reverse_max(b, max_pos, size);
 		// Find the bottom value of A
-		t_node *bottom = (*a)->top; // Start at the top
-		while (bottom && bottom->next)
-			bottom = bottom->next; // Traverse to last node
+		
 		// Now, max is at the top of B
-		if (down == 0 || (*b)->top->value > bottom->value)
+		if (down == 0 || (*b)->top->value > get_bottom_stack(a)->value)
 		{
 			pa(a, b); // Push to A
 			ra(a);    // Rotate to put it at the bottom

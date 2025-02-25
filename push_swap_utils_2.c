@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 11:30:41 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/24 17:52:51 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/25 15:58:03 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ long long	ft_atoi_push_swap(t_stack **stack_a, char **arr, const char *nptr)
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		total = total * 10 + (nptr[i++] - '0');
-		if (total * sign > INT32_MAX || total * sign < INT32_MIN )
+		if (total * sign > INT32_MAX || total * sign < INT32_MIN)
 			error_and_free(arr, stack_a);
 	}
 	return (total * sign);

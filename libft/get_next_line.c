@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zbakour <zbakour@student.42.fr>            +#+  +:+       +#+        */
+/*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:49:02 by zbakour           #+#    #+#             */
-/*   Updated: 2024/12/21 15:51:28 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/25 15:55:42 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	next_line = get_string(buff);
 	buff = handle_remaining(buff);
-	
 	return (next_line);
 }
