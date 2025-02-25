@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:03:33 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/24 11:54:15 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:43:52 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_stack
 }		t_stack;
 
 short		*get_is_printable(void);
+bool		is_onlychar(char *s, char c);
 void		push_swap(t_stack **stack_a, t_stack **stack_b, int size);
 void		handle_args(t_stack **stack_a, int ac, char **argv);
 int			*make_reference(t_stack **stack_a, int size);

@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:06:09 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/24 13:40:20 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:41:02 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,20 @@ void	error_and_free(char **arr, t_stack **stack)
 	show_error();
 }
 
+bool	is_onlychar(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (true);
+	while (s[i] == c)
+		i++;
+	if (s[i] == '\0')
+		return (true);
+	return (false);
+}
+
 void	handle_args(t_stack **stack_a, int ac, char **argv)
 {
 	char		**arr;
@@ -63,7 +77,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	i = 1;
 	while (i < ac)
 	{
-		if (argv[i][0] == '\0')
+		if (argv[i][0] == '\0' || is_onlychar(argv[i], ' '))
 			error_and_free(NULL, stack_a);
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
