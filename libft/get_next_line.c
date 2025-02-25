@@ -108,6 +108,8 @@ char	*get_next_line(int fd)
 	static char	*buff;
 	char		*next_line;
 
+	if (fd == -99)
+		free(buff);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	read_save(fd, &buff);
@@ -115,5 +117,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	next_line = get_string(buff);
 	buff = handle_remaining(buff);
+	
 	return (next_line);
 }

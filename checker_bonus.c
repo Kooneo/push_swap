@@ -52,13 +52,15 @@ void	handle_operations(t_stack **a, t_stack **b, char *op)
 		;
 	else
 	{
-		free_stacks(a, b);
+		free_stack(a);
+		free_stack(b);
 		free(op);
+		get_next_line(-99);
 		show_error();
 	}
 }
 
-void	chech_result(t_stack **stack_a, t_stack **stack_b)
+void	check_result(t_stack **stack_a, t_stack **stack_b)
 {
 	if (!is_sorted(stack_a) || (*stack_b && ft_ssize(stack_b) > 0))
 		ft_putendl_fd("KO", 1);
@@ -73,6 +75,7 @@ int	main(int ac, char **argv)
 	t_stack	*stack_b;
 	short	*print_op;
 	char	*operation;
+	char	*read_line;
 
 	stack_a = NULL;
 	stack_b = NULL;
@@ -81,15 +84,20 @@ int	main(int ac, char **argv)
 	if (ac != 1)
 	{
 		handle_args(&stack_a, ac, argv);
-		operation = ft_strtrim(get_next_line(0), "\n\t\v");
-		while (operation)
+		read_line = get_next_line(0);
+		while (read_line)
 		{
+			operation = ft_strtrim(read_line, "\n\t\v");
+			free(read_line);
 			handle_operations(&stack_a, &stack_b, operation);
 			free(operation);
-			operation = ft_strtrim(get_next_line(0), "\n\t\v");
+			read_line = get_next_line(0);
 		}
-		chech_result(&stack_a, &stack_b);
+		check_result(&stack_a, &stack_b);
+		get_next_line(-99);
+		free(read_line);
 	}
+	free(print_op);
 	free_stacks(&stack_a, &stack_b);
 	return (0);
 }

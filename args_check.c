@@ -90,7 +90,7 @@ void	handle_args(t_stack **stack_a, int ac, char **argv)
 	while (i < ac)
 	{
 		if (argv[i][0] == '\0')
-			show_error();
+			error_and_free(argv, stack_a);
 		arr = ft_split(argv[i], ' ');
 		if (!arr)
 			error_and_free(arr, stack_a);
