@@ -14,8 +14,8 @@
 
 int	find_max_pos(t_stack **stack, int *max_val, int size)
 {
-	int max_pos;
-	int i;
+	int		max_pos;
+	int		i;
 	t_node	*current;
 
 	current = (*stack)->top;
@@ -68,22 +68,18 @@ void	push_back_to_a(t_stack **a, t_stack **b)
 	int		max_pos;
 	int		max_val;
 	int		size;
-	
-	int down = 0; // Track numbers at the bottom of A
+	int		down;
+
+	down = 0;
 	while (*b && (*b)->top)
 	{
 		size = ft_ssize(b);
-		// Find the maximum value and its position in B
 		max_pos = find_max_pos(b, &max_val, size);
-		// Rotate or reverse rotate to bring max to the top
 		rotate_or_reverse_max(b, max_pos, size);
-		// Find the bottom value of A
-		
-		// Now, max is at the top of B
 		if (down == 0 || (*b)->top->value > get_bottom_stack(a)->value)
 		{
-			pa(a, b); // Push to A
-			ra(a);    // Rotate to put it at the bottom
+			pa(a, b);
+			ra(a);
 			down++;
 		}
 		else
