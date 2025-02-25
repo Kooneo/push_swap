@@ -108,7 +108,7 @@ char	*get_next_line(int fd)
 	static char	*buff;
 	char		*next_line;
 
-	if (fd == -99)
+	if (fd == -99 && buff)
 		free(buff);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);

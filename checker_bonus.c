@@ -97,7 +97,6 @@ int	main(int ac, char **argv)
 		get_next_line(-99);
 		free(read_line);
 	}
-	free(print_op);
 	free_stacks(&stack_a, &stack_b);
 	return (0);
 }
