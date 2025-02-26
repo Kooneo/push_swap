@@ -43,6 +43,8 @@ int			ft_ssize(t_stack **stack);
 short		is_sorted(t_stack **stack_a);
 void		sort_2_nums(t_stack **stack_a);
 void		sort_3_nums(t_stack **stack_a);
+void		sort_4_nums(t_stack **stack_a, t_stack **stack_b);
+void		sort_5_nums(t_stack **stack_a, t_stack **stack_b);
 int			init_offset(int size);
 long long	ft_atoi_push_swap(t_stack **stack_a, char **arr, const char *nptr);
 void		error_and_free(char **arr, t_stack **stack);

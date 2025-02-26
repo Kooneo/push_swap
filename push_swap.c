@@ -19,9 +19,13 @@ static void	sort_a(t_stack **stack_a, t_stack **stack_b)
 	if (!stack_a || !(*stack_a)->top || is_sorted(stack_a))
 		return ;
 	size = ft_ssize(stack_a);
-	if (size <= 3)
+	if (size <= 5)
 	{
-		if (size == 3)
+		if (size == 5)
+			sort_5_nums(stack_a, stack_b);
+		if (size == 4)
+			sort_4_nums(stack_a, stack_b);
+		else if (size == 3)
 			sort_3_nums(stack_a);
 		else if (size == 2)
 			sort_2_nums(stack_a);
