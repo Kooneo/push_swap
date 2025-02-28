@@ -6,7 +6,7 @@
 /*   By: zbakour <zbakour@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:02:45 by zbakour           #+#    #+#             */
-/*   Updated: 2025/02/26 23:03:42 by zbakour          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:17:51 by zbakour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_offset(int size)
 
 	offset = size / 10;
 	if (size <= 100)
-		offset = size / 7;
+		offset = size / 6;
 	else if (size <= 7000)
 		offset = size / 14;
 	return (offset);
